@@ -476,6 +476,24 @@ textarea.inp{min-height:76px;resize:vertical}
 .wa-lv.l0{width:6px;height:6px;opacity:.25}.wa-lv.l1{width:8px;height:8px;opacity:.45}.wa-lv.l2{width:11px;height:11px;opacity:.7}.wa-lv.l3{width:15px;height:15px;opacity:.95}
 .legend .lg-pt{width:10px;height:10px;border-radius:50%;background:var(--surface);border:3px solid var(--red);box-sizing:border-box}
 .legend .lg-pt.end{border-radius:2px}
+.banner.pend{background:color-mix(in srgb,var(--accent) 22%,var(--surface));border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.tile.dead{opacity:.55}
+.tile.dead .rline,.rline.tp{font-size:11.5px;font-weight:700}
+.rline.tp{color:var(--orange-t,#B5651D)}
+.ct.dead{opacity:.45;border-style:dashed}
+.ct.dead .ctn{text-decoration:line-through}
+.ct.alert{border:2px solid var(--orange);box-shadow:0 0 0 2px color-mix(in srgb,var(--orange) 25%,transparent)}
+.dot.d-dead{background:transparent;border:1.5px dashed var(--muted)}
+.evb.ev-top{border-color:color-mix(in srgb,var(--orange) 60%,var(--line))}
+.evb.ev-top .ic{color:var(--orange)}
+.evb.ev-dead .ic{color:var(--muted)}
+.banner.tp{background:color-mix(in srgb,var(--orange) 16%,var(--surface))}
+.banner.dead{background:var(--surface2)}
+.ct{position:relative}
+.ct-ev{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--orange);color:#fff;font:800 12px/18px var(--f-display,sans-serif);text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.fl.arc{cursor:pointer}
+.fl.arc:hover{border-color:var(--accent)}
+.menu .dz svg{color:var(--red)}
 .sync-list{margin:0;padding:0;list-style:none;display:grid;gap:4px;max-height:46vh;overflow:auto}
 .sync-list li{padding:8px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);font-size:14px}
 .banner .btn.sm{margin-left:auto;flex:0 0 auto}
@@ -589,6 +607,9 @@ textarea.inp{min-height:76px;resize:vertical}
   <symbol id="g-disease" viewBox="0 0 24 24"><path fill="currentColor" d="M9 2.5h6v6.5h6.5v6H15v6.5H9V15H2.5V9H9z"/></symbol>
   <symbol id="g-pest" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9L2 6M6 13H1.5M6 16.5L2.5 20M18 9l4-3M18 13h4.5M18 16.5l3.5 3.5"/></g><ellipse cx="12" cy="13" rx="7" ry="6.2" fill="currentColor"/></symbol>
   <symbol id="g-syrup" viewBox="0 0 24 24"><g fill="currentColor"><rect x="8" y="1.8" width="8" height="3.4" rx="1"/><path d="M6.5 6.2h11c.8 0 1.4.6 1.4 1.4v8.9c0 .8-.6 1.4-1.4 1.4h-11c-.8 0-1.4-.6-1.4-1.4V7.6c0-.8.6-1.4 1.4-1.4z" opacity=".55"/><path d="M5.1 11h13.8v5.5c0 .8-.6 1.4-1.4 1.4h-11c-.8 0-1.4-.6-1.4-1.4z"/><path d="M12 19.2c1 1.3 1.6 2 1.6 2.6a1.6 1.6 0 0 1-3.2 0c0-.6.6-1.3 1.6-2.6z"/></g></symbol>
+  <symbol id="g-alert" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2c.7 0 1.3.4 1.7 1l8.6 15.4c.7 1.3-.2 2.9-1.7 2.9H3.4c-1.5 0-2.4-1.6-1.7-2.9L10.3 3.2c.4-.6 1-1 1.7-1zm-1.3 6.3l.3 6.3h2l.3-6.3zM12 16.2a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></symbol>
+  <symbol id="g-storm" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14a4.5 4.5 0 0 1 1.6-8.7A6 6 0 0 1 18 7a4 4 0 0 1 .8 7.6"/><path d="M13 10.5l-3 5h4l-3 5.5"/></g></symbol>
+  <symbol id="g-skull" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5c-5 0-8.5 3.4-8.5 8 0 2.6 1.2 4.5 3 5.6V19a1.5 1.5 0 0 0 1.5 1.5h8A1.5 1.5 0 0 0 17.5 19v-2.9c1.8-1.1 3-3 3-5.6 0-4.6-3.5-8-8.5-8zM8.5 10a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm7 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM12 14.2l1.4 2.3h-2.8z"/></symbol>
   <symbol id="g-hourglass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h12M6 21.5h12M7.5 2.5c0 5 4.5 6.5 4.5 9.5s-4.5 4.5-4.5 9.5M16.5 2.5c0 5-4.5 6.5-4.5 9.5s4.5 4.5 4.5 9.5"/></g><path fill="currentColor" d="M9 19.5c1-2 2-3 3-3s2 1 3 3z"/></symbol>
   <symbol id="g-queen" viewBox="0 0 24 24"><path fill="currentColor" d="M3 18.5l1.6-11 5 4.6L12 4.5l2.4 7.6 5-4.6 1.6 11z"/></symbol>
   <symbol id="g-muscle" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 20.5c-.8-5.6.4-10.6 3.6-15 1-1.3 2.9-1.6 4-.6l.9.8c.8.8.6 2.1-.3 2.7l-2.3 1.6c-.6.4-.8 1.2-.5 1.9.3.6 1 .9 1.6.7 2.6-1 5.5-.7 7.5 1.1 2.4 2.1 2.2 5.4-.4 6.8z"/></symbol>
@@ -612,7 +633,7 @@ textarea.inp{min-height:76px;resize:vertical}
 <div class="tip" id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <input type="file" id="logo-file" accept="image/*" hidden>
-<script>window.SAHA_MODE=true;window.SAHA_VER='70bb9d3394';</script>
+<script>window.SAHA_MODE=true;window.SAHA_VER='51251f791d';</script>
 <script>
 /* ===== Arıcılık Defteri: hesaplama (DOM yok) ===== */
 var L = (function () {
@@ -856,7 +877,22 @@ var L = (function () {
     out.varroaPct = p;
     return out;
   }
+  /* ---- olaylar: fırtınada devrilme, koloni sönmesi ---- */
+  var EVENT_KINDS = [['devrildi', 'Fırtına / devrilme'], ['diger', 'Diğer olay']];
+  var DEATH_CAUSES = [['terk', 'Arılar terk etti / zayıflık'], ['devrilme', 'Fırtına / devrilme'], ['esek', 'Eşek arısı / sarıca'], ['varroa', 'Varroa'], ['hastalik', 'Hastalık'], ['aclik', 'Açlık'], ['ana', 'Ana kaybı'], ['bilinmiyor', 'Bilinmiyor']];
+  function deadEvent(h) { var d = null; (h.events || []).forEach(function (ev) { if (ev.kind === 'sondu' && (!d || ev.date > d.date)) d = ev; }); return d; }
+  function checkedSince(h, date) { return (h.checks || []).some(function (c) { return c.date >= date; }); }
+  /* açık olaylar: devrilme (kontrol girilince ya da “Kontrol ettim” ile kapanır), diğer olay (“Tamam” ile kapanır) */
+  function openEvents(h) {
+    if (deadEvent(h)) return [];
+    return (h.events || []).filter(function (ev) { return (ev.kind === 'devrildi' && !ev.nextDone && !checkedSince(h, ev.date)) || (ev.kind === 'diger' && !ev.nextDone); }).sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+  }
+  function toppled(h) { var t = null; (h.events || []).forEach(function (ev) { if (ev.kind === 'devrildi' && !ev.nextDone && !checkedSince(h, ev.date) && (!t || ev.date > t.date)) t = ev; }); return deadEvent(h) ? null : t; }
   function hiveColor(h, today) {
+    if (toppled(h)) return isGrayHive(h) ? 'orange' : (function (c) { return c === 'red' ? 'red' : 'orange'; })(hiveColor0(h, today));
+    return hiveColor0(h, today);
+  }
+  function hiveColor0(h, today) {
     if (isGrayHive(h)) return 'gray';
     var rs = ringStatus(h, today), m = G;
     ['pop', 'honey', 'pollen', 'seen', 'pattern', 'disease', 'pest'].forEach(function (k) { m = Math.max(m, lvl(rs[k])); });
@@ -868,7 +904,8 @@ var L = (function () {
   function staleDays(h, today) { var lc = lastCheck(h); if (!lc) return null; return diffDays(lc.date, today || todayISO()); }
 
   function counters(hives, today) {
-    var c = { green: 0, orange: 0, red: 0, gray: 0, winter: 0, all: hives.length, strong: 0, normal: 0, weak: 0 };
+    var c = { green: 0, orange: 0, red: 0, gray: 0, winter: 0, all: hives.length, strong: 0, normal: 0, weak: 0, dead: 0 };
+    hives = hives.filter(function (h) { if (deadEvent(h)) { c.dead++; return false; } return true; }); c.all = hives.length;
     hives.forEach(function (h) { c[hiveColor(h, today)]++; if (h.wintering) c.winter++; var s = strengthOf(h); if (s && c[s] != null) c[s]++; });
     c.score = c.all ? (c.strong + c.normal) / c.all * 100 : null;
     return c;
@@ -954,6 +991,9 @@ var L = (function () {
       if (h.queenRearing && h.queenRearing.steps) h.queenRearing.steps.forEach(function (st) {
         out.push({ kind: 'rear', hiveId: h.id, hiveNo: h.no, rKey: st.key, idx: -1, date: st.date, label: st.title, product: 'Ana arı üretimi · ' + st.day + '. gün', ingredient: '', done: !!st.done, dose: '' });
       });
+      (h.events || []).forEach(function (ev) {
+        if (ev.kind === 'devrildi' && ev.nextDate && !deadEvent(h)) out.push({ kind: 'todo', hiveId: h.id, hiveNo: h.no, cId: ev.id, idx: -1, date: ev.nextDate, label: ev.nextTask || 'Devrilen kovanı kontrol et', product: 'Kovan işi', ingredient: '', done: !!ev.nextDone || checkedSince(h, ev.date), dose: '' });
+      });
       (h.checks || []).forEach(function (c) {
         if (c.nextDate && c.nextTask) out.push({ kind: 'todo', hiveId: h.id, hiveNo: h.no, cId: c.id, idx: -1, date: c.nextDate, label: c.nextTask, product: 'Kovan işi', ingredient: '', done: !!c.nextDone, dose: '' });
       });
@@ -1013,6 +1053,7 @@ var L = (function () {
     iso: iso, todayISO: todayISO, pd: pd, addDays: addDays, addYears: addYears, diffDays: diffDays, fmtD: fmtD, fmtShort: fmtShort, ageText: ageText,
     sharersOf: sharersOf, computeDebts: computeDebts, periodsOf: periodsOf, pivot: pivot, matKey: matKey,
     sortedDesc: sortedDesc, lastCheck: lastCheck, lastCount: lastCount, countPct: countPct, currentQueen: currentQueen, queenOld: queenOld,
+    EVENT_KINDS: EVENT_KINDS, DEATH_CAUSES: DEATH_CAUSES, deadEvent: deadEvent, toppled: toppled, openEvents: openEvents, checkedSince: checkedSince,
     isGrayHive: isGrayHive, feedInfo: feedInfo, feederInfo: feederInfo, FEED_KINDS: FEED_KINDS, ringStatus: ringStatus, hiveColor: hiveColor, strengthOf: strengthOf, staleDays: staleDays, counters: counters,
     programSteps: programSteps, parseDays: parseDays, tComplete: tComplete, doneDate: doneDate, WASPS: WASPS, LEVELS: LEVELS, LEVEL_SCORE: LEVEL_SCORE, BAITS: BAITS, baitAt: baitAt, lastTrapCheck: lastTrapCheck, baitStats: baitStats, trapTasks: trapTasks, varroaIndicators: varroaIndicators, calendarTasks: calendarTasks, seasonFor: seasonFor
   };
@@ -1029,7 +1070,7 @@ if (typeof module !== 'undefined') module.exports = L;
   var T = L.todayISO;
 
   /* ---------------- state ---------------- */
-  var COLS = ['expenses', 'payments', 'debts', 'hives', 'materials', 'flora', 'traps', 'wasps', 'settings'];
+  var COLS = ['expenses', 'payments', 'debts', 'hives', 'materials', 'flora', 'traps', 'wasps', 'archive', 'settings'];
   var S = {
     view: 'kovanlar', hiveId: null, tab: 'checks', menu: false,
     data: {}, loaded: {}, mode: 'loading', editable: false, assets: null,
@@ -1054,23 +1095,51 @@ if (typeof module !== 'undefined') module.exports = L;
     if (i >= 0) a[i] = doc; else a.push(doc);
     if (SAHA) { sahaSave(); return; }
     if (!store) return;
-    var key = col + '/' + doc.id, prev = queues[key] || Promise.resolve();
-    queues[key] = prev.then(function () {
-      var cur = get(col, doc.id); if (!cur) return;
-      var d = clone(cur); delete d.id;
-      return store.doc(col + '/' + doc.id).set(d);
-    }).catch(function (e) {
-      if (e && e.code === 'invalid_argument') { S.editable = false; render(); toast('Bu hesabın kayıt değiştirme yetkisi yok. Sayfa sahibinden “Düzenleyen” yetkisi isteyin.'); }
-      else toast('Kaydedilemedi. Bağlantıyı kontrol edip tekrar deneyin.');
-    });
+    pqSet(col, doc.id, doc); send(col, doc.id);
   }
   function del(col, id) {
     if (SAHA) sahaTombDoc(col, get(col, id));
     S.data[col] = S.data[col].filter(function (x) { return x.id !== id; });
     if (SAHA) { sahaSave(); return; }
     if (!store) return;
+    pqSet(col, id, null); send(col, id);
+  }
+  /* ---- internet kesilince: kayıtlar tarayıcıda bekler, bağlantı gelince kendiliğinden gönderilir ---- */
+  var PQK = 'ad.pending.v1', PQ = {}, offNote = false, flushT = null;
+  try { PQ = JSON.parse(localStorage.getItem(PQK) || '{}') || {}; } catch (e) { PQ = {}; }
+  offNote = Object.keys(PQ).length > 0;
+  function pqSave() { try { localStorage.setItem(PQK, JSON.stringify(PQ)); } catch (e) {} }
+  function pqSet(col, id, doc) { PQ[col + '/' + id] = { col: col, id: id, doc: doc ? clone(doc) : null, ts: Date.now() }; pqSave(); }
+  function pqCount() { return Object.keys(PQ).length; }
+  function withTimeout(p, ms) { return Promise.race([p, new Promise(function (_, rej) { setTimeout(function () { rej({ code: 'timeout' }); }, ms); })]); }
+  function send(col, id) {
     var key = col + '/' + id, prev = queues[key] || Promise.resolve();
-    queues[key] = prev.then(function () { return store.doc(col + '/' + id).delete(); }).catch(function () { toast('Silinemedi. Bağlantıyı kontrol edip tekrar deneyin.'); });
+    queues[key] = prev.then(function () {
+      var it = PQ[key]; if (!it) return;
+      var ts = it.ts, op;
+      if (it.doc) { var d = clone(it.doc); delete d.id; op = store.doc(key).set(d); } else op = store.doc(key).delete();
+      return withTimeout(op, 15000).then(function () {
+        if (PQ[key] && PQ[key].ts === ts) { delete PQ[key]; pqSave(); }
+        if (offNote && !pqCount()) { offNote = false; toast('Bağlantı geldi, bekleyen kayıtlar gönderildi'); }
+        render();
+      });
+    }).catch(function (e) {
+      if (e && e.code === 'invalid_argument') { delete PQ[key]; pqSave(); S.editable = false; render(); toast('Bu hesabın kayıt değiştirme yetkisi yok. Sayfa sahibinden “Düzenleyen” yetkisi isteyin.'); return; }
+      if (!offNote) { offNote = true; toast('İnternet yok: kayıt bu cihazda saklandı, bağlantı gelince kendiliğinden gönderilecek'); }
+      render(); planFlush();
+    });
+  }
+  function planFlush() { if (flushT) return; flushT = setTimeout(function () { flushT = null; flushPending(); }, 20000); }
+  function flushPending() { if (!store) return; Object.keys(PQ).forEach(function (k) { send(PQ[k].col, PQ[k].id); }); }
+  window.addEventListener('online', function () { flushPending(); });
+  /* sunucudan gelen listeye henüz gönderilmemiş kayıtları uygula */
+  function overlayPending(col, arr) {
+    Object.keys(PQ).forEach(function (k) {
+      var it = PQ[k]; if (it.col !== col) return;
+      arr = arr.filter(function (x) { return x.id !== it.id; });
+      if (it.doc) arr.push(clone(it.doc));
+    });
+    return arr;
   }
   function hives() { return S.data.hives.slice().sort(function (a, b) { return (a.no || 0) - (b.no || 0); }); }
   function hv(id) { return get('hives', id); }
@@ -1164,6 +1233,8 @@ if (typeof module !== 'undefined') module.exports = L;
     }
     /* kum saati */
     var sd = L.staleDays(h, today);
+    var oev = L.openEvents(h);
+    if (oev.length) out.push(hexBtn({ st: 'red', text: '!', tip: oev.map(function (o) { return (o.kind === 'devrildi' ? 'Fırtınada devrildi · kontrol bekliyor' : 'Olay') + ' (' + L.fmtD(o.date) + ')' + (o.note ? '\n' + o.note : ''); }).join('\n\n'), x: 88, y: 50, s: 24, cls: 'evm' }));
     if (sd != null && sd >= 7) out.push(hexBtn({ st: wst('yellow', w), g: 'hourglass', tip: 'Son kontrolden bu yana ' + sd + ' gün geçti\nSon kontrol: ' + L.fmtD(lc.date), x: 88, y: 88, s: 26, cls: 'hgl' }));
     /* köşeler */
     if (w) out.push(hexBtn({ st: 'ice', g: 'snow', tip: 'Kışlatma modunda\nKovan kış için hazırlandı', x: 13, y: 13, s: 24 }));
@@ -1236,17 +1307,19 @@ if (typeof module !== 'undefined') module.exports = L;
     else if (v === 'flora') html = viewFlora();
     else if (v === 'esek') html = viewWasp();
     else if (v === 'senkron') html = viewSync();
+    else if (v === 'arsiv') html = viewArchive();
     else html = viewMasraf();
     var bn = '';
     if (SAHA) { var nch = SZ ? sahaChanges().length : 0; if (nch && v !== 'senkron') bn = '<div class="banner"><span>Telefonda <b>' + nch + '</b> değişiklik siteye gönderilmeyi bekliyor.</span><a class="btn sm" href="#senkron">Senkron</a></div>'; }
     else if (S.mode === 'memory') bn = '<div class="banner">Kayıt servisine bağlanılamadı. Girdikleriniz yalnızca bu sayfa açıkken tutulur.</div>';
+    if (!SAHA && pqCount() && offNote) bn += '<div class="banner pend"><span><b>' + pqCount() + '</b> kayıt internet gelince gönderilecek. Bu cihazda güvende; sayfayı kapatsan da kaybolmaz.</span><button class="btn sm" type="button" data-a="pq-retry">Şimdi dene</button></div>';
     $('#view').innerHTML = bn + html;
     if (fid) { var el = document.getElementById(fid); if (el) { el.focus({ preventScroll: true }); try { if (ss != null) el.setSelectionRange(ss, se); } catch (e) {} } }
     hideTip(); fitApiary();
   }
   function route() {
     var h = (location.hash || '').replace('#', '');
-    if ((SAHA ? ['kovanlar', 'takvim', 'esek', 'senkron'] : ['masraf', 'kovanlar', 'takvim', 'esek', 'flora']).indexOf(h) >= 0) { if (S.view !== h || S.hiveId) { S.view = h; S.hiveId = null; S.menu = false; window.scrollTo(0, 0); } }
+    if ((SAHA ? ['kovanlar', 'takvim', 'esek', 'senkron'] : ['masraf', 'kovanlar', 'takvim', 'esek', 'flora', 'arsiv']).indexOf(h) >= 0) { if (S.view !== h || S.hiveId) { S.view = h; S.hiveId = null; S.arcId = null; S.menu = false; window.scrollTo(0, 0); } }
     else if (h === 'borclar' || h === 'pivot') S.view = 'masraf';
     render();
   }
@@ -1423,9 +1496,9 @@ if (typeof module !== 'undefined') module.exports = L;
   function viewHives() {
     var all = hives(), c = L.counters(all, T());
     var h = '<div class="ph"><div><h1>Kovanlarım</h1><p>Simgelere dokunarak ayrıntıyı görün; kovanı açmak için kovana dokunun.</p></div>' +
-      (S.editable ? '<div class="btns"><button class="btn primary" type="button" data-a="hive-add">' + ic('plus') + 'Kovan ekle</button>' + (SAHA ? '' : '<button class="btn" type="button" data-a="saha">' + ic('sync') + 'Saha uygulaması</button>') + '<button class="btn" type="button" data-a="mat-add">' + ic('box') + 'Malzeme Ekle</button><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button></div>' : '<div class="btns"><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button></div>') + '</div>';
+      (S.editable ? '<div class="btns"><button class="btn primary" type="button" data-a="hive-add">' + ic('plus') + 'Kovan ekle</button>' + (SAHA ? '' : '<button class="btn" type="button" data-a="saha">' + ic('sync') + 'Saha uygulaması</button>') + '<button class="btn" type="button" data-a="mat-add">' + ic('box') + 'Malzeme Ekle</button><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>' : '<div class="btns"><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>') + '</div>';
     if (all.some(function (x) { return x.example; }) && S.editable) h += '<div class="banner"><span>“Örnek” yazan kovanlar simgelerin nasıl çalıştığını göstermek için eklendi. Kendi kovanlarınızı ekleyince silebilirsiniz.</span><button class="btn sm" type="button" data-a="del-examples">Örnek kovanları sil</button></div>';
-    h += '<div class="counts" aria-label="Kovan renkleri"><span class="cnt"><span class="dot d-green"></span>Yeşil <b>' + c.green + '</b></span><span class="cnt"><span class="dot d-orange"></span>Turuncu <b>' + c.orange + '</b></span><span class="cnt"><span class="dot d-red"></span>Kırmızı <b>' + c.red + '</b></span><span class="cnt"><span class="dot d-gray"></span>Kayıtsız <b>' + c.gray + '</b></span>' + (c.winter ? '<span class="cnt"><span class="dot d-ice"></span>Kışlatma <b>' + c.winter + '</b></span>' : '') + '</div>';
+    h += '<div class="counts" aria-label="Kovan renkleri"><span class="cnt"><span class="dot d-green"></span>Yeşil <b>' + c.green + '</b></span><span class="cnt"><span class="dot d-orange"></span>Turuncu <b>' + c.orange + '</b></span><span class="cnt"><span class="dot d-red"></span>Kırmızı <b>' + c.red + '</b></span><span class="cnt"><span class="dot d-gray"></span>Kayıtsız <b>' + c.gray + '</b></span>' + (c.winter ? '<span class="cnt"><span class="dot d-ice"></span>Kışlatma <b>' + c.winter + '</b></span>' : '') + (c.dead ? '<span class="cnt" title="Sönen kovanlar sayılara ve sağlık skoruna katılmaz"><span class="dot d-dead"></span>Sönük <b>' + c.dead + '</b></span>' : '') + '</div>';
     var fdefs = [['all', 'Hepsi', c.all, ''], ['strong', 'Güçlü', c.strong, 'gold'], ['normal', 'Normal', c.normal, 'green'], ['weak', 'Zayıf', c.weak, 'red']];
     h += '<div class="sbar"><div class="sfilters" role="group" aria-label="Güce göre filtrele">' + fdefs.map(function (d) {
       return '<button type="button" class="fbtn" data-a="sf" data-v="' + d[0] + '" aria-pressed="' + (S.sf === d[0]) + '"><span class="fn">' + d[2] + '</span><span class="fbl">' + (d[3] ? '<svg class="ms" viewBox="0 0 24 24" style="color:var(--' + d[3] + ')"><use href="#g-muscle"/></svg>' : '') + d[1] + '</span></button>';
@@ -1466,10 +1539,10 @@ if (typeof module !== 'undefined') module.exports = L;
   }
   function slotCompact(no, x) {
     if (!x) return '<div class="ct ghost"' + (S.editable ? ' role="button" tabindex="0" data-a="hive-add-at" data-no="' + no + '" title="Kovan ' + no + ' ekle"' : '') + ' aria-label="Boş yer, Kovan ' + no + '"><span class="ctn">' + no + '</span></div>';
-    var off = S.sf !== 'all' && L.strengthOf(x) !== S.sf, st = L.strengthOf(x);
-    var tip = 'Kovan ' + x.no + (x.queenRearing ? ' · Ana arı üretimi' : '') + (x.wintering ? ' · Kışlatma' : '') + (st ? ' · ' + L.lab(L.STRENGTH, st) : '');
-    return '<div class="ct' + (off ? ' dim' : '') + (x.wintering ? ' winter' : '') + (x.queenRearing ? ' rear' : '') + '" role="button" tabindex="0" data-a="open-hive" data-id="' + esc(x.id) + '" title="' + esc(tip) + '" aria-label="' + esc(tip) + '">' +
-      (x.queenRearing ? rearBadge() : miniHive(x, 26, 30)) + '<span class="ctn">' + esc(x.no) + '</span></div>';
+    var off = S.sf !== 'all' && L.strengthOf(x) !== S.sf, st = L.strengthOf(x), dd = L.deadEvent(x), tp = L.toppled(x) || L.openEvents(x)[0];
+    var tip = 'Kovan ' + x.no + (dd ? ' · Söndü (' + L.fmtD(dd.date) + ')' : '') + (tp ? (tp.kind === 'devrildi' ? ' · Devrildi, kontrol bekliyor' : ' · Olay: ' + (tp.note || '')) : '') + (x.queenRearing ? ' · Ana arı üretimi' : '') + (x.wintering ? ' · Kışlatma' : '') + (st && !dd ? ' · ' + L.lab(L.STRENGTH, st) : '');
+    return '<div class="ct' + (off ? ' dim' : '') + (dd ? ' dead' : '') + (tp ? ' alert' : '') + (x.wintering ? ' winter' : '') + (x.queenRearing ? ' rear' : '') + '" role="button" tabindex="0" data-a="open-hive" data-id="' + esc(x.id) + '" title="' + esc(tip) + '" aria-label="' + esc(tip) + '">' +
+      (x.queenRearing ? rearBadge() : miniHive(x, 26, 30)) + '<span class="ctn">' + esc(x.no) + '</span>' + (L.openEvents(x).length ? '<span class="ct-ev" aria-hidden="true">!</span>' : '') + '</div>';
   }
   function fitApiary() {
     var w = $('.apiary-wrap'); if (!w) return;
@@ -1490,7 +1563,14 @@ if (typeof module !== 'undefined') module.exports = L;
     return '<div class="tile rear" role="button" tabindex="0" data-a="open-hive" data-id="' + esc(x.id) + '" aria-label="Kovan ' + esc(x.no) + ', ana arı üretim kovanı"><div class="stage rear-stage">' + rearBadge() + '</div>' +
       '<span class="no"><small>Kovan</small>' + esc(x.no) + '</span><span class="rline">Ana üretim · ' + line + '</span></div>';
   }
+  function deadTile(x, d) {
+    var tip = 'Kovan ' + x.no + ' · Söndü (' + L.fmtD(d.date) + ')' + (d.cause ? '\nSebep: ' + L.lab(L.DEATH_CAUSES, d.cause) : '') + (d.note ? '\n' + d.note : '');
+    return '<div class="tile dead" role="button" tabindex="0" data-a="open-hive" data-id="' + esc(x.id) + '" title="' + esc(tip) + '" aria-label="' + esc(tip) + '"><div class="stage">' + hiveSvg(x.size, 66, 78).replace('class="hive', 'class="hive st-gray') + '</div>' +
+      '<span class="no"><small>Kovan</small>' + esc(x.no) + '</span><span class="rline">Söndü · ' + L.fmtShort(d.date) + '</span></div>';
+  }
+  function topLine(x) { var t = L.toppled(x); return t ? '<span class="rline tp">Devrildi · kontrol bekliyor</span>' : ''; }
   function tileHtml(x) {
+    var dd = L.deadEvent(x); if (dd) return deadTile(x, dd);
     if (x.queenRearing) return rearTile(x);
     return '<div class="tile' + (x.wintering ? ' winter' : '') + '" role="button" tabindex="0" data-a="open-hive" data-id="' + esc(x.id) + '" aria-label="Kovan ' + esc(x.no) + ' ayrıntıları">' + stageHtml(x) +
       '<span class="no"><small>Kovan</small>' + esc(x.no) + '</span>' + varroaRow(x) + (x.example ? '<span class="ex">Örnek</span>' : '') + '</div>';
@@ -1545,23 +1625,37 @@ if (typeof module !== 'undefined') module.exports = L;
   /*                            KOVAN DETAY                              */
   /* =================================================================== */
   var TABS = [['checks', 'Kontrol geçmişi', 'checks'], ['treat', 'Varroa uygulamaları', 'treatments'], ['feed', 'Besleme', 'feedings'], ['count', 'Varroa Yükü', 'counts'], ['queen', 'Ana arı', 'queens']];
-  function viewHive() {
-    var x = hv(S.hiveId), today = T(), lc = L.lastCheck(x), col = L.hiveColor(x, today);
+  function viewHive(xo) {
+    var x = xo || hv(S.hiveId), today = T(), lc = L.lastCheck(x), col = L.hiveColor(x, today);
     var evs = (x.events || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
     var badges = evs.map(function (ev) {
+      if (ev.kind === 'diger') {
+        var tip3 = 'Olay · ' + L.fmtD(ev.date) + (ev.note ? '\n' + ev.note : '') + (ev.nextDone ? '\nKapatıldı' : '');
+        return '<button type="button" class="evb ev-top" data-a="ev-edit" data-id="' + esc(ev.id) + '" data-tip="' + esc(tip3) + '" aria-label="' + esc(tip3) + '"><span class="ic"><svg class="ar" viewBox="0 0 24 24" style="width:18px;height:18px"><use href="#g-alert"/></svg></span><span class="nn">Olay</span><small>' + L.fmtD(ev.date) + '</small></button>';
+      }
+      if (ev.kind === 'devrildi' || ev.kind === 'sondu') {
+        var dead = ev.kind === 'sondu', tip2 = (dead ? 'Koloni söndü' : 'Fırtına / devrilme') + ' · ' + L.fmtD(ev.date) + (dead && ev.cause ? '\nSebep: ' + L.lab(L.DEATH_CAUSES, ev.cause) : '') + (!dead ? ((ev.nextDone || L.checkedSince(x, ev.date)) ? '\nKontrol edildi' : '\nKontrol bekliyor') : '') + (ev.note ? '\n' + ev.note : '');
+        return '<button type="button" class="evb ' + (dead ? 'ev-dead' : 'ev-top') + '" data-a="ev-edit" data-id="' + esc(ev.id) + '" data-tip="' + esc(tip2) + '" aria-label="' + esc(tip2) + '"><span class="ic"><svg class="ar" viewBox="0 0 24 24" style="width:18px;height:18px"><use href="#' + (dead ? 'g-skull' : 'g-storm') + '"/></svg></span><span class="nn">' + (dead ? 'Söndü' : 'Devrildi') + '</span><small>' + L.fmtD(ev.date) + '</small></button>';
+      }
       var from = hv(ev.from), to = hv(ev.to), merge = ev.kind === 'merge';
       var tip = merge ? 'Birleştirme · ' + L.fmtD(ev.date) + '\nKovan ' + ev.fromNo + '’in arıları Kovan ' + ev.toNo + '’e aktarıldı' : 'Bölme · ' + L.fmtD(ev.date) + '\nKovan ' + ev.fromNo + ' bölündü, yeni koloni Kovan ' + ev.toNo + '’de';
       return '<button type="button" class="evb" data-tip="' + esc(tip) + '" aria-label="' + esc(tip) + '"><span class="ic">' + miniHive(from) + '<svg class="ar" viewBox="0 0 24 16"><use href="#i-' + (merge ? 'arrow' : 'fork') + '"/></svg>' + miniHive(to) + '</span><span class="nn">' + esc(ev.fromNo) + (merge ? ' → ' : ' ⑂ ') + esc(ev.toNo) + '</span><small>' + L.fmtD(ev.date) + '</small></button>';
     }).join('');
     var h = '<div class="det-top"><button class="icon-btn" type="button" data-a="back" aria-label="Kovanlara dön">' + ic('back') + '</button><h1>Kovan ' + esc(x.no) + '</h1><div class="grow">' + badges + '</div>' +
       (S.editable ? '<div class="menu-wrap" style="margin-left:auto"><button class="icon-btn" type="button" data-a="menu" aria-label="Kovan ayarları" aria-expanded="' + S.menu + '">' + ic('gear') + '</button>' + (S.menu ? menuHtml(x) : '') + '</div>' : '') + '</div>';
-    var pill = x.wintering ? '<span class="pill ice">Kışlatma</span>' : '<span class="pill ' + col + '">' + ({ green: 'Sorun yok', orange: 'Dikkat', red: 'Sorun var', gray: 'Kayıt yok' })[col] + '</span>';
+    var dEv = L.deadEvent(x), tEv = L.toppled(x);
+    var pill = dEv ? '<span class="pill gray">Söndü · ' + L.fmtD(dEv.date) + '</span>' : x.wintering ? '<span class="pill ice">Kışlatma</span>' : '<span class="pill ' + col + '">' + ({ green: 'Sorun yok', orange: 'Dikkat', red: 'Sorun var', gray: 'Kayıt yok' })[col] + '</span>';
     var str = L.strengthOf(x);
     h += '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px">' + pill + (str ? '<span class="pill ' + (str === 'weak' ? 'red' : str === 'strong' ? 'gold' : 'green') + '">' + L.lab(L.STRENGTH, str) + '</span>' : '') + '<span class="muted" style="font-size:14px">' + (lc ? 'Son kontrol ' + L.fmtD(lc.date) + ' · ' + L.staleDays(x, today) + ' gün önce' : 'Henüz kontrol girilmedi') + '</span></div>';
+    L.openEvents(x).forEach(function (oe) {
+      h += oe.kind === 'devrildi' ? '<div class="banner tp"><span><b>Fırtınada devrildi</b> (' + L.fmtD(oe.date) + ')' + (oe.note ? ' · ' + esc(oe.note) : '') + '. Uygun havada kontrol edin; kontrol girince bu uyarı kalkar.</span>' + (S.editable ? '<button class="btn sm" type="button" data-a="ev-ok" data-id="' + esc(oe.id) + '">Kontrol ettim</button>' : '') + '</div>'
+        : '<div class="banner tp"><span><b>Olay</b> (' + L.fmtD(oe.date) + ') · ' + esc(oe.note || '') + '</span>' + (S.editable ? '<button class="btn sm" type="button" data-a="ev-ok" data-id="' + esc(oe.id) + '">Tamam</button>' : '') + '</div>';
+    });
+    if (dEv) h += '<div class="banner dead"><span><b>Koloni söndü</b> (' + L.fmtD(dEv.date) + ')' + (dEv.cause ? ' · ' + esc(L.lab(L.DEATH_CAUSES, dEv.cause)) : '') + (dEv.note ? ' · ' + esc(dEv.note) : '') + '. Sayılara ve sağlık skoruna katılmıyor; kayıtları duruyor. Kovana yeni koloni koyarsanız bu olayı silin.</span></div>';
     h += '<div class="kv-row"><div><span>Kovan türü</span><b>' + esc(x.type || 'Langstroth') + '</b></div><div><span>Ölçü</span><b>' + esc(x.size || 24) + '</b></div><div><span>Kapasite</span><b>' + esc(x.capacity || 10) + ' çerçeve</b></div><div><span>Altlık</span><b>' + (x.base === 'ahsap' ? 'Sabit ahşap' : 'Plastik') + '</b></div><div><span>Polen çekmecesi</span><b>' + (x.drawer ? 'Var' : 'Yok') + '</b></div>' +
       (function () { var q = L.currentQueen(x); return q ? '<div><span>Ana arı yaşı</span><b>' + L.ageText(q.date, today) + '</b></div>' : ''; })() + '</div>';
     if (S.editable) {
-      var AB = [['chk-add', 'Kontrol ekle', 'i-magnifier'], ['tr-add', 'Uygulama ekle', 'i-spray'], ['fd-add', 'Besleme ekle', 'g-feed'], ['ct-add', 'Varroa sayımı ekle', 'i-mites'], ['qn-add', 'Ana arı ekle', 'i-queenbee']];
+      var AB = [['chk-add', 'Kontrol ekle', 'i-magnifier'], ['tr-add', 'Uygulama ekle', 'i-spray'], ['fd-add', 'Besleme ekle', 'g-feed'], ['ct-add', 'Varroa sayımı ekle', 'i-mites'], ['qn-add', 'Ana arı ekle', 'i-queenbee'], ['ev-add', 'Olay Ekle', 'g-alert']];
       var HW = 46, HH = 53, G = 3, HP = [[0, 0], [HW + G, 0], [2 * (HW + G), 0], [(HW + G) / 2, HH * 0.75 + G], [1.5 * (HW + G), HH * 0.75 + G]];
       h += '<div class="comb" role="group" aria-label="Kayıt ekle">' + AB.map(function (b, i) { return '<button type="button" class="hc" data-a="' + b[0] + '" data-tip="' + b[1] + '" aria-label="' + b[1] + '"><span class="in"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#' + b[2] + '"/></svg></span></button>'; }).join('') + '</div>';
     }
@@ -1594,13 +1688,85 @@ if (typeof module !== 'undefined') module.exports = L;
     }).join('') + '</div></section>';
     return h;
   }
+  function eventForm(x, ev) {
+    var isNew = !ev; ev = ev || { kind: 'diger', date: T() };
+    var h = '<form id="f-ev" novalidate><input type="hidden" name="kind" value="' + esc(ev.kind) + '">' +
+      '<div class="f"><label for="ev-d">Tarih</label><input class="inp" id="ev-d" name="date" type="date" value="' + esc(ev.date) + '" max="' + T() + '"></div>' +
+      '<div class="f" id="ev-cause"' + (ev.kind === 'sondu' ? '' : ' hidden') + '><label for="ev-c">Sebep</label><select class="inp" id="ev-c" name="cause">' + opts(L.DEATH_CAUSES, ev.cause || '', 'Seçin') + '</select><span class="hint">Sönen kovan, kayıtlarıyla birlikte durur ama sayılara ve sağlık skoruna katılmaz.</span></div>' +
+      '<div id="ev-top" class="hint"' + (ev.kind === 'devrildi' ? '' : ' hidden') + '>Kovan turuncu olur, simgesinde ünlem çıkar ve takvime “Devrilen kovanı kontrol et” işi düşer. Bu tarihten sonra kontrol girdiğinizde ya da “Kontrol ettim” dediğinizde uyarı kalkar.</div>' +
+      '<div class="f"><label for="ev-n">Ne oldu?</label><textarea class="inp" id="ev-n" name="note" maxlength="600" placeholder="Örn. fırtınada devrildi, kapak uçmuş">' + esc(ev.note || '') + '</textarea></div>' +
+      '<p class="err" id="ev-err" role="alert"></p><div class="fbtns"><button class="btn primary" type="submit">Kaydet</button>' + (isNew ? '' : '<button class="btn danger" type="button" id="ev-del">Olayı sil</button>') + '<button class="btn" type="button" data-a="close">Vazgeç</button></div></form>';
+    openModal((isNew ? 'Olay Ekle' : 'Olayı düzenle') + ' · Kovan ' + x.no, h, {
+      init: function (m) {
+        var f = $('#f-ev', m);
+        f.addEventListener('change', function (e2) { if (e2.target.name === 'kind') { $('#ev-cause', m).hidden = e2.target.value !== 'sondu'; $('#ev-top', m).hidden = e2.target.value !== 'devrildi'; } });
+        var d = $('#ev-del', m); if (d) d.addEventListener('click', function () { var y = clone(cur()); y.events = (y.events || []).filter(function (o) { return o.id !== ev.id; }); closeModal(); saveHive(y); toast('Olay silindi'); });
+      },
+      submit: function (f) {
+        var k = f.elements.kind.value, d = val(f, 'date');
+        if (!k) return ($('#ev-err').textContent = 'Ne olduğunu seçin.');
+        if (!d) return ($('#ev-err').textContent = 'Tarihi seçin.');
+        if (!val(f, 'note')) return ($('#ev-err').textContent = 'Ne olduğunu yazın.');
+        var y = clone(cur()), rec = Object.assign({}, ev, { id: ev.id || uid('ev'), kind: k, date: d, note: val(f, 'note'), created: ev.created || Date.now() });
+        if (k === 'sondu') { rec.cause = f.elements.cause.value || 'bilinmiyor'; delete rec.nextTask; delete rec.nextDate; delete rec.nextDone; }
+        else if (k === 'diger') { delete rec.cause; delete rec.nextTask; delete rec.nextDate; rec.nextDone = !!ev.nextDone && ev.kind === 'diger'; }
+        else { delete rec.cause; rec.nextTask = 'Devrilen kovanı kontrol et'; rec.nextDate = d; rec.nextDone = !!ev.nextDone && ev.kind === 'devrildi'; }
+        upsertIn(hiveArr(y, 'events'), rec); closeModal(); saveHive(y);
+        toast(k === 'sondu' ? 'Kovan ' + y.no + ' sönük olarak işaretlendi' : k === 'diger' ? 'Kovan ' + y.no + ': olay kaydedildi' : 'Kovan ' + y.no + ': devrilme kaydedildi, kontrol takvime eklendi');
+      }
+    });
+  }
+  /* ---- Kovan Sönmesi: kovan tüm kayıtlarıyla arşive taşınır, kovanlardan silinir ---- */
+  function viewArchive() {
+    var list = S.data.archive.slice().sort(function (a, b) { return ((b.death || {}).date || '') < ((a.death || {}).date || '') ? -1 : 1; });
+    if (S.arcId) {
+      var r = get('archive', S.arcId);
+      if (r) {
+        var x = clone(r.hive); x.id = r.id; var ed = S.editable; S.editable = false;
+        var inner; try { inner = viewHive(x); } finally { S.editable = ed; }
+        inner = inner.replace('data-a="back" aria-label="Kovanlara dön"', 'data-a="arc-back" aria-label="Arşive dön"');
+        var d = r.death || {};
+        return inner.replace('<div class="kv-row">', '<div class="banner dead"><span><b>Arşiv · Söndü</b> ' + L.fmtD(d.date) + (d.cause ? ' · ' + esc(L.lab(L.DEATH_CAUSES, d.cause)) : '') + (d.note ? ' · ' + esc(d.note) : '') + '</span>' + (S.editable ? '<span style="display:flex;gap:6px"><button class="btn sm" type="button" data-a="arc-restore" data-id="' + esc(r.id) + '">Geri al</button><button class="btn sm danger" type="button" data-a="arc-del" data-id="' + esc(r.id) + '">Sil</button></span>' : '') + '</div><div class="kv-row">');
+      }
+      S.arcId = null;
+    }
+    var h = '<div class="ph"><div><h1>Arşiv</h1><p>Sönen kovanlar bütün kayıtlarıyla burada saklanır. Açmak için karta dokunun.</p></div><div class="btns"><a class="btn" href="#kovanlar">' + ic('back') + 'Kovanlara dön</a></div></div>';
+    if (!list.length) return h + '<div class="empty"><b>Arşiv boş</b>Bir kovan sönünce kovan sayfasındaki ayarlardan “Kovan Sönmesi” ile kaydedin; kovan buraya taşınır.</div>';
+    return h + '<div class="fl-grid">' + list.map(function (r) {
+      var x = r.hive || {}, d = r.death || {}, lc = L.lastCheck(x);
+      return '<article class="fl arc" role="button" tabindex="0" data-a="arc-open" data-id="' + esc(r.id) + '"><div class="ih" style="display:flex;gap:10px;align-items:center">' + hiveSvg(x.size, 30, 35).replace('class="hive', 'class="hive st-gray') + '<h3 style="margin:0">Kovan ' + esc(r.no) + '</h3><span class="chip">Söndü · ' + L.fmtD(d.date) + '</span></div>' +
+        '<div class="ib"><span>Sebep <em>' + esc(L.lab(L.DEATH_CAUSES, d.cause) || '—') + '</em></span><span>Kontrol <em>' + (x.checks || []).length + '</em></span><span>Uygulama <em>' + (x.treatments || []).length + '</em></span><span>Besleme <em>' + (x.feedings || []).length + '</em></span>' + (lc ? '<span>Son kontrol <em>' + L.fmtD(lc.date) + '</em></span>' : '') + '</div>' +
+        (d.note ? '<div class="nt" style="font-size:13.5px">' + esc(d.note) + '</div>' : '') + '</article>';
+    }).join('') + '</div>';
+  }
+  function deathForm(x) {
+    var h = '<form id="f-dt" novalidate><p class="muted" style="margin:0 0 10px">Kovan ' + esc(x.no) + ' bütün kayıtlarıyla (kontroller, uygulamalar, beslemeler, varroa sayımları, ana arı) <b>Arşiv</b>’e taşınacak ve kovan listesinden kaldırılacak. Yeri boşalır; arşivden istediğiniz zaman bakabilir ya da geri alabilirsiniz.</p>' +
+      '<div class="g2"><div class="f"><label for="dt-d">Sönme tarihi</label><input class="inp" id="dt-d" name="date" type="date" value="' + T() + '" max="' + T() + '"></div>' +
+      '<div class="f"><label for="dt-c">Sebep</label><select class="inp" id="dt-c" name="cause">' + opts(L.DEATH_CAUSES, '', 'Seçin') + '</select></div></div>' +
+      '<div class="f"><label for="dt-n">Not</label><textarea class="inp" id="dt-n" name="note" maxlength="600" placeholder="Örn. fırtınada devrildi, arılar gitti"></textarea></div>' +
+      '<p class="err" id="dt-err" role="alert"></p><div class="fbtns"><button class="btn danger" type="submit">Söndü olarak kaydet ve arşive taşı</button><button class="btn" type="button" data-a="close">Vazgeç</button></div></form>';
+    openModal('Kovan Sönmesi · Kovan ' + x.no, h, {
+      submit: function (f) {
+        var d = val(f, 'date'), c = f.elements.cause.value;
+        if (!d) return ($('#dt-err').textContent = 'Sönme tarihini seçin.');
+        if (!c) return ($('#dt-err').textContent = 'Sebebi seçin (bilmiyorsanız “Bilinmiyor”).');
+        archiveHive(x, { date: d, cause: c, note: val(f, 'note') });
+        closeModal(); S.hiveId = null; S.menu = false; render(); toast('Kovan ' + x.no + ' söndü olarak arşive taşındı');
+      }
+    });
+  }
+  function archiveHive(x, death) {
+    var a = clone(x), id = a.id; delete a.id;
+    put('archive', { id: 'ar' + id, hive: a, hiveId: id, no: x.no, death: death, archivedAt: Date.now() });
+    del('hives', id);
+  }
   function menuHtml(x) {
     return '<div class="menu" role="menu"><button type="button" role="menuitem" data-a="hive-info">' + ic('info') + 'Kovan bilgileri</button>' +
       '<button type="button" role="menuitem" data-a="hive-merge">' + ic('merge') + 'Kovan Birleştirme</button>' +
       '<button type="button" role="menuitem" data-a="hive-split">' + ic('split') + 'Kovan Bölme</button>' +
       '<button type="button" role="menuitem" data-a="hive-move"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2.5v19M2.5 12h19M12 2.5l-3 3M12 2.5l3 3M12 21.5l-3-3M12 21.5l3-3M2.5 12l3-3M2.5 12l3 3M21.5 12l-3-3M21.5 12l-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yer Değişikliği</button>' +
       '<button type="button" role="menuitem" data-a="hive-winter" class="' + (x.wintering ? 'on' : '') + '"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#g-snow"/></svg>Kışlatma' + (x.wintering ? ': açık' : '') + '</button>' +
-      '<button type="button" role="menuitem" data-a="hive-reset" class="dz">' + ic('reset') + 'Kovan Sıfırla</button></div>';
+      '<button type="button" role="menuitem" data-a="hive-death" class="dz"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#g-skull"/></svg>Kovan Sönmesi</button></div>';
   }
   function addBtn() { return ''; }
   function latestTab(x) {
@@ -2127,12 +2293,12 @@ if (typeof module !== 'undefined') module.exports = L;
     });
     return out;
   }
-  var SYNC_COLS = ['hives', 'materials', 'traps', 'wasps'];
-  var COL_LBL = { hives: 'Kovan', materials: 'Malzeme', traps: 'Tuzak', wasps: 'Sezon kaydı' };
+  var SYNC_COLS = ['hives', 'materials', 'traps', 'wasps', 'archive'];
+  var COL_LBL = { hives: 'Kovan', materials: 'Malzeme', traps: 'Tuzak', wasps: 'Sezon kaydı', archive: 'Arşiv' };
   var ARR_LBL = { checks: 'kontrol', treatments: 'varroa uygulaması', feedings: 'besleme', counts: 'varroa sayımı', queens: 'ana arı kaydı', events: 'olay', losses: 'söndürülen kovan', baits: 'yem değişikliği' };
   function changeSummary(ch) {
     var src = ch.mine || ch.base || ch.gone || {};
-    var col = ch.col, nm = col === 'hives' ? 'Kovan ' + src.no : col === 'traps' ? (src.name || 'Tuzak') : col === 'materials' ? (src.name || 'Malzeme') : COL_LBL[col] + ' ' + (src.year || '');
+    var col = ch.col, nm = col === 'hives' ? 'Kovan ' + src.no : col === 'archive' ? 'Arşiv · Kovan ' + src.no + ' (söndü)' : col === 'traps' ? (src.name || 'Tuzak') : col === 'materials' ? (src.name || 'Malzeme') : COL_LBL[col] + ' ' + (src.year || '');
     if (!ch.mine) return nm + ': silindi';
     if (ch.base && jeq(ch.base, ch.mine) && (ch.tombItems || []).length) return nm + ': ' + ch.tombItems.length + ' kayıt silindi';
     if (!ch.base) return nm + ': yeni eklendi';
@@ -2612,8 +2778,8 @@ if (typeof module !== 'undefined') module.exports = L;
   function openHive(id, tab) { S.hiveId = id; S.tab = tab || (hv(id) ? latestTab(hv(id)) : 'checks'); S.menu = false; S.view = 'kovanlar'; if (location.hash !== '#kovanlar') history.replaceState(null, '', '#kovanlar'); window.scrollTo(0, 0); render(); }
   function cur() { return hv(S.hiveId); }
   function findIn(x, key, id) { return (x[key] || []).find(function (a) { return a.id === id; }); }
-  function confirmDel(text, onYes) {
-    openModal('Silinsin mi?', '<div class="confirm"><span>' + text + ' Bu işlem geri alınamaz.</span><div class="fbtns"><button class="btn danger" type="button" id="cd-yes">Evet, sil</button><button class="btn" type="button" data-a="close">Vazgeç</button></div></div>', {
+  function confirmDel(text, onYes, yesLbl) {
+    openModal(yesLbl ? 'Onaylıyor musunuz?' : 'Silinsin mi?', '<div class="confirm"><span>' + text + (yesLbl ? '' : ' Bu işlem geri alınamaz.') + '</span><div class="fbtns"><button class="btn ' + (yesLbl ? 'primary' : 'danger') + '" type="button" id="cd-yes">' + (yesLbl || 'Evet, sil') + '</button><button class="btn" type="button" data-a="close">Vazgeç</button></div></div>', {
       init: function (m) { $('#cd-yes', m).addEventListener('click', function () { closeModal(); onYes(); render(); }); }
     });
   }
@@ -2647,8 +2813,25 @@ if (typeof module !== 'undefined') module.exports = L;
     'hive-add-at': function (el) { hiveAddForm(el); },
     'hive-info': function () { S.menu = false; render(); hiveInfoForm(cur()); },
     saha: function () { sahaModal(); },
+    'pq-retry': function () { flushPending(); toast('Gönderiliyor…'); },
     'sz-in': function () { pickFile(sahaImportPack); },
     'sz-send': function () { sahaSend(); },
+    'ev-add': function () { eventForm(cur()); },
+    'hive-death': function () { S.menu = false; render(); deathForm(cur()); },
+    'arc-open': function (el) { S.arcId = el.dataset.id; S.tab = 'checks'; window.scrollTo(0, 0); render(); },
+    'arc-back': function () { S.arcId = null; render(); },
+    'arc-list': function () { location.hash = '#arsiv'; },
+    'arc-restore': function (el) {
+      var r = get('archive', el.dataset.id); if (!r) return;
+      var taken = S.data.hives.some(function (h) { return Number(h.no) === Number(r.no); });
+      confirmDel('Kovan ' + esc(r.no) + ' arşivden çıkarılıp kovanlara geri eklenecek' + (taken ? ' (o numarada başka kovan olduğu için ilk boş numarayı alacak)' : '') + '. Sönme kaydı silinir.', function () {
+        var hv0 = clone(r.hive); hv0.id = r.hiveId || uid('h'); if (taken) hv0.no = nextNo();
+        put('hives', hv0); del('archive', r.id); S.arcId = null; render(); toast('Kovan ' + hv0.no + ' geri alındı');
+      }, 'Evet, geri al');
+    },
+    'arc-del': function (el) { var r = get('archive', el.dataset.id); if (!r) return; confirmDel('Arşivdeki Kovan ' + esc(r.no) + ' ve bütün kayıtları kalıcı olarak silinecek.', function () { del('archive', r.id); S.arcId = null; render(); toast('Arşiv kaydı silindi'); }); },
+    'ev-edit': function (el) { if (!S.editable) return; var x = cur(); eventForm(x, findIn(x, 'events', el.dataset.id)); },
+    'ev-ok': function (el) { var y = clone(cur()), ev = findIn(y, 'events', el.dataset.id); if (!ev) return; ev.nextDone = true; saveHive(y); toast(ev.kind === 'devrildi' ? 'Devrilme uyarısı kapatıldı' : 'Olay uyarısı kapatıldı'); },
     'hive-move': function () { S.menu = false; render(); moveModal(cur()); },
     'hive-merge': function () { S.menu = false; render(); pickModal(cur(), 'merge'); },
     'hive-split': function () { S.menu = false; render(); pickModal(cur(), 'split'); },
@@ -2742,7 +2925,7 @@ if (typeof module !== 'undefined') module.exports = L;
     if (a === 'repeat-done') { if (el.checked) repeatDone(el); return; }
     if (a === 'trap-done') { el.checked = false; var tq = get('traps', el.dataset.tr); if (tq && S.editable) trapCheckForm(tq); return; }
     if (a === 'rear-done') { var hr = hv(el.dataset.h); if (!hr || !S.editable || !hr.queenRearing) return; var yr = clone(hr), stp = (yr.queenRearing.steps || []).find(function (q) { return q.key === el.dataset.k; }); if (!stp) return; stp.done = el.checked; stp.doneAt = el.checked ? T() : null; put('hives', yr); render(); toast(el.checked ? stp.title + ' yapıldı' : stp.title + ' bekleyene döndü'); return; }
-    if (a === 'todo-done') { var hx2 = hv(el.dataset.h); if (!hx2 || !S.editable) return; var y2 = clone(hx2), cc = findIn(y2, 'checks', el.dataset.c); if (!cc) return; cc.nextDone = el.checked; put('hives', y2); render(); toast(el.checked ? 'İş tamamlandı' : 'İş bekleyene döndü'); return; }
+    if (a === 'todo-done') { var hx2 = hv(el.dataset.h); if (!hx2 || !S.editable) return; var y2 = clone(hx2), cc = findIn(y2, 'checks', el.dataset.c) || findIn(y2, 'events', el.dataset.c); if (!cc) return; cc.nextDone = el.checked; put('hives', y2); render(); toast(el.checked ? 'İş tamamlandı' : 'İş bekleyene döndü'); return; }
     if (A[a]) { if (el.tagName !== 'INPUT') e.preventDefault(); A[a](el, e); }
   });
   /* filtre alanları */
@@ -2791,9 +2974,9 @@ if (typeof module !== 'undefined') module.exports = L;
     var pending = COLS.length;
     COLS.forEach(function (col) {
       db.collection(col).onSnapshot(function (snap) {
-        S.data[col] = snap.docs.map(function (d) { var o = Object.assign({}, d.data()); o.id = d.id; return o; });
+        S.data[col] = overlayPending(col, snap.docs.map(function (d) { var o = Object.assign({}, d.data()); o.id = d.id; return o; }));
         if (!S.loaded[col]) { S.loaded[col] = true; pending--; }
-        if (pending <= 0) S.mode = 'db';
+        if (pending <= 0 && S.mode !== 'db') { S.mode = 'db'; flushPending(); }
         if (S.hiveId && !hv(S.hiveId)) S.hiveId = null;
         render();
       }, function () { if (!S.loaded[col]) { S.loaded[col] = true; pending--; } if (pending <= 0 && S.mode === 'loading') S.mode = 'db'; render(); });
