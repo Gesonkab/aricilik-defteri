@@ -223,11 +223,12 @@ tr:last-child td{border-bottom:0}
   .health .hv{font-size:16px}
   .health .hm{width:60px}
 }
-.apiary.compact{flex-direction:row;align-items:flex-start;gap:8px}
-.apiary.compact .stand{grid-template-columns:74px;grid-template-rows:20px repeat(7,44px);gap:5px;padding:0 4px 4px;border-radius:10px}
-.apiary.compact .stand.short{grid-template-columns:74px;grid-template-rows:20px repeat(3,44px);width:auto}
-.apiary.compact .stand.extra{grid-template-rows:20px}
-.apiary.compact .st-lb{align-self:end}
+/* masaüstü: sehpalar soldan sağa, her sehpada Kovan 1 en altta, numaralar yukarı doğru */
+.apiary.compact{flex-direction:row;align-items:flex-end;gap:8px}
+.apiary.compact .stand{display:flex;flex-direction:column-reverse;width:82px;gap:5px;padding:4px 4px 0;border-radius:10px}
+.apiary.compact .stand > *{flex:0 0 44px;width:100%;box-sizing:border-box}
+.apiary.compact .stand .st-lb{flex:0 0 20px;align-self:center;line-height:20px}
+.apiary.compact .stand.short{width:82px}
 .ct{display:flex;align-items:center;justify-content:center;gap:6px;height:44px;border-radius:9px;background:var(--surface);border:1px solid var(--line);cursor:pointer;user-select:none}
 .ct:hover{border-color:var(--accent)}
 .ct .ctn{font:700 15px var(--f-display);font-variant-numeric:tabular-nums}
@@ -405,6 +406,9 @@ textarea.inp{min-height:76px;resize:vertical}
 .opt span{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--bg);font-weight:600;font-size:14px;cursor:pointer}
 .opt input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .opt input:focus-visible+span{outline:2px solid var(--focus);outline-offset:2px}
+#f-chk.quick .qf{display:none}
+.opt.o-nd span{border-style:dashed;color:var(--muted)}
+.opt.o-nd input:checked+span{background:var(--surface2);border-color:var(--muted);color:var(--ink)}
 .opt.o-red input:checked+span{background:var(--red);border-color:var(--red);color:#fff}
 .opt.o-orange input:checked+span{background:var(--orange);border-color:var(--orange);color:#fff}
 .opt.o-green input:checked+span{background:var(--green);border-color:var(--green);color:#fff}
@@ -428,9 +432,10 @@ textarea.inp{min-height:76px;resize:vertical}
 .mvc[aria-pressed=true]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink);opacity:1;color:var(--ink)}
 .mvc:hover{border-color:var(--accent)}
 @media (min-width:700px){
-  .mvmap{flex-direction:row;align-items:flex-start;gap:7px;max-height:none}
-  .mvrow{grid-template-columns:52px;grid-template-rows:16px;grid-auto-rows:46px;gap:5px}
-  .mvlb{align-self:end}
+  .mvmap{flex-direction:row;align-items:flex-end;gap:7px;max-height:none}
+  .mvrow{display:flex;flex-direction:column-reverse;width:52px;gap:5px}
+  .mvrow > *{flex:0 0 46px;width:100%;box-sizing:border-box}
+  .mvrow .mvlb{flex:0 0 16px;align-self:center}
 }
 .mvleg{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-bottom:8px;flex-wrap:wrap}
 .mvleg span{display:inline-flex;align-items:center;gap:5px}
@@ -491,6 +496,16 @@ textarea.inp{min-height:76px;resize:vertical}
 .banner.dead{background:var(--surface2)}
 .ct{position:relative}
 .ct-ev{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--orange);color:#fff;font:800 12px/18px var(--f-display,sans-serif);text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hg-wrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 12px 4px}
+.hg{width:100%;height:auto;display:block;max-height:300px}
+.hg-grid{stroke:var(--line);stroke-width:1}
+.hg-base{stroke:var(--muted);stroke-width:1}
+.hg-fill{fill:var(--honey)}
+.hg-bar:hover .hg-fill,.hg-bar:focus .hg-fill{fill:color-mix(in srgb,var(--honey) 80%,var(--ink))}
+.hg-bar:focus{outline:none}
+.hg-val{font:600 12px var(--f-body,sans-serif);fill:var(--ink);text-anchor:middle;font-variant-numeric:tabular-nums}
+.hg-yr{font:600 12px var(--f-body,sans-serif);fill:var(--muted);text-anchor:middle}
+@media (max-width:699px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.hg-val,.hg-yr{font-size:21px}}
 .fl.arc{cursor:pointer}
 .fl.arc:hover{border-color:var(--accent)}
 .menu .dz svg{color:var(--red)}
@@ -569,6 +584,7 @@ textarea.inp{min-height:76px;resize:vertical}
   <!-- arayüz simgeleri -->
   <symbol id="i-coin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="7" rx="7" ry="3"/><path d="M5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></g></symbol>
   <symbol id="i-hive" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 9l9-6 9 6z"/><rect x="5" y="9" width="14" height="5" rx="1"/><rect x="5" y="14" width="14" height="6" rx="1"/><path d="M10 17.5h4"/></g></symbol>
+  <symbol id="i-jar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.5h8M9 3.5v2.5c-2.4.9-4 3-4 5.5v6.5a2.5 2.5 0 0 0 2.5 2.5h9a2.5 2.5 0 0 0 2.5-2.5v-6.5c0-2.5-1.6-4.6-4-5.5V3.5"/><path d="M5 12.5h14"/></g></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14l2 2 4-4"/></g></symbol>
   <symbol id="i-wasp" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5.4" r="2"/><path d="M10.8 3.6L9.4 1.8M13.2 3.6l1.4-1.8"/><ellipse cx="12" cy="9.6" rx="2.3" ry="2"/><path d="M12 11.6c2.4 0 3.3 2.2 3.3 4.6 0 2.8-1.8 5.2-3.3 6.2-1.5-1-3.3-3.4-3.3-6.2 0-2.4.9-4.6 3.3-4.6z"/><path d="M9 15h6M9.2 18h5.6"/><path d="M10 9C7 6 3.5 6.5 3.6 8.4c.1 1.7 3.6 2.3 6.4 1.6M14 9c3-3 6.5-2.5 6.4-.6-.1 1.7-3.6 2.3-6.4 1.6"/></g></symbol>
   <symbol id="i-sync" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8a8 8 0 0 0-14.3-2.4L4 7.5"/><path d="M4 3.5v4h4"/><path d="M4 16a8 8 0 0 0 14.3 2.4l1.7-1.9"/><path d="M20 20.5v-4h-4"/></g></symbol>
@@ -633,7 +649,7 @@ textarea.inp{min-height:76px;resize:vertical}
 <div class="tip" id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <input type="file" id="logo-file" accept="image/*" hidden>
-<script>window.SAHA_MODE=true;window.SAHA_VER='51251f791d';</script>
+<script>window.SAHA_MODE=true;window.SAHA_VER='dcccfd3b1b';</script>
 <script>
 /* ===== Arıcılık Defteri: hesaplama (DOM yok) ===== */
 var L = (function () {
@@ -709,7 +725,7 @@ var L = (function () {
   var QUEEN_HOW = [['satin', 'Satın alındı'], ['kendi', 'Kendi yetiştirmem'], ['dogal', 'Doğal / sessiz ana değişimi'], ['bolme', 'Bölme ile'], ['ogul', 'Oğul'], ['diger', 'Diğer']];
   var UNITS = ['kg', 'g', 'L', 'ml', 'adet', 'paket'];
 
-  function lab(list, key) { for (var i = 0; i < list.length; i++) if (list[i][0] === key) return list[i][1]; return key == null ? '' : String(key); }
+  function lab(list, key) { if (key === 'nd') return 'Değerlendirilmedi'; for (var i = 0; i < list.length; i++) if (list[i][0] === key) return list[i][1]; return key == null ? '' : String(key); }
 
   /* ---- numbers & money ---- */
   function parseNum(v) {
@@ -826,6 +842,20 @@ var L = (function () {
   function byDateDesc(a, b) { if (a.date !== b.date) return a.date < b.date ? 1 : -1; return (b.created || 0) - (a.created || 0); }
   function sortedDesc(arr) { return (arr || []).slice().sort(byDateDesc); }
   function lastCheck(h) { return sortedDesc(h.checks)[0] || null; }
+  /* “Değerlendirilmedi” (nd) cevaplar: her soru için en son DEĞERLENDİRİLEN kontrolün değeri kullanılır */
+  function isND(v) { return v == null || v === '' || v === 'nd' || (Array.isArray(v) && (!v.length || v.indexOf('nd') >= 0)); }
+  var KNOWN_GROUPS = [['flight'], ['pop'], ['honey'], ['pollen'], ['feed', 'feeds'], ['feeder'], ['seen'], ['queenCell'], ['pattern'], ['disease', 'diseases', 'diseaseText'], ['pest', 'pests', 'pestText'], ['behavior'], ['strength'], ['frames']];
+  function knownCheck(h) {
+    var list = sortedDesc(h.checks); if (!list.length) return null;
+    var k = Object.assign({}, list[0]), from = {};
+    KNOWN_GROUPS.forEach(function (g) {
+      var key = g[0], ok = function (c) { return key === 'frames' ? !!(c.frames && c.frames.total != null) : !isND(c[key]); };
+      var src = list.find(ok);
+      if (src) { g.forEach(function (f) { k[f] = src[f]; }); from[key] = src.date; }
+      else g.forEach(function (f) { k[f] = key === 'frames' ? null : (Array.isArray(list[0][f]) ? [] : null); });
+    });
+    k._from = from; return k;
+  }
   function lastCount(h) { return sortedDesc(h.counts)[0] || null; }
   function countPct(c) { return c && c.bees > 0 ? (c.mites / c.bees) * 100 : null; }
   function currentQueen(h) { return sortedDesc(h.queens)[0] || null; }
@@ -834,7 +864,7 @@ var L = (function () {
 
   /* Yem: son kontrol "var" ya da son kontrolden sonra (aynı gün dahil) besleme kaydı */
   function feedInfo(h) {
-    var lc = lastCheck(h), feeds = sortedDesc(h.feedings);
+    var lc = knownCheck(h), feeds = sortedDesc(h.feedings);
     var names = [];
     if (lc && lc.feed === 'var') (lc.feeds || []).forEach(function (f) { if (f && f.name) names.push(f.name); });
     var after = feeds.filter(function (f) { return f.kind !== 'sivi' && (!lc || f.date >= lc.date); });
@@ -846,7 +876,7 @@ var L = (function () {
   var FEED_KINDS = [['kati', 'Katı besleme'], ['sivi', 'Sıvı besleme']];
   /* şurupluk: son kontrolde "var" işaretlendiyse; açıklama için son sıvı besleme */
   function feederInfo(h) {
-    var lc = lastCheck(h), liq = sortedDesc(h.feedings).filter(function (f) { return f.kind === 'sivi'; });
+    var lc = knownCheck(h), liq = sortedDesc(h.feedings).filter(function (f) { return f.kind === 'sivi'; });
     return { present: !!(lc && lc.feeder === 'var'), liquid: liq[0] || null };
   }
   var R = 3, O = 2, G = 1;
@@ -859,7 +889,7 @@ var L = (function () {
 
   /* Halkadaki 8 alanın durumu */
   function ringStatus(h, today) {
-    var lc = lastCheck(h), c = lastCount(h), p = countPct(c);
+    var lc = knownCheck(h), c = lastCount(h), p = countPct(c);
     var out = {
       pop: lc ? popSt(lc.pop) : 'gray',
       frames: lc && (lc.frames || lc.beeFrames != null) ? 'ink' : 'gray',
@@ -897,10 +927,10 @@ var L = (function () {
     var rs = ringStatus(h, today), m = G;
     ['pop', 'honey', 'pollen', 'seen', 'pattern', 'disease', 'pest'].forEach(function (k) { m = Math.max(m, lvl(rs[k])); });
     if (rs.queenOld) m = Math.max(m, O);
-    var lc = lastCheck(h); if (lc && (lc.queenCell === 'ogul' || lc.queenCell === 'acil')) m = Math.max(m, O);
+    var lc = knownCheck(h); if (lc && (lc.queenCell === 'ogul' || lc.queenCell === 'acil')) m = Math.max(m, O);
     return m === R ? 'red' : m === O ? 'orange' : 'green';
   }
-  function strengthOf(h) { var lc = lastCheck(h); return lc && lc.strength ? lc.strength : null; }
+  function strengthOf(h) { var lc = knownCheck(h); return lc && lc.strength ? lc.strength : null; }
   function staleDays(h, today) { var lc = lastCheck(h); if (!lc) return null; return diffDays(lc.date, today || todayISO()); }
 
   function counters(hives, today) {
@@ -1052,7 +1082,7 @@ var L = (function () {
     lab: lab, parseNum: parseNum, r2: r2, money: money, qty: qty, pct1: pct1,
     iso: iso, todayISO: todayISO, pd: pd, addDays: addDays, addYears: addYears, diffDays: diffDays, fmtD: fmtD, fmtShort: fmtShort, ageText: ageText,
     sharersOf: sharersOf, computeDebts: computeDebts, periodsOf: periodsOf, pivot: pivot, matKey: matKey,
-    sortedDesc: sortedDesc, lastCheck: lastCheck, lastCount: lastCount, countPct: countPct, currentQueen: currentQueen, queenOld: queenOld,
+    sortedDesc: sortedDesc, lastCheck: lastCheck, knownCheck: knownCheck, isND: isND, lastCount: lastCount, countPct: countPct, currentQueen: currentQueen, queenOld: queenOld,
     EVENT_KINDS: EVENT_KINDS, DEATH_CAUSES: DEATH_CAUSES, deadEvent: deadEvent, toppled: toppled, openEvents: openEvents, checkedSince: checkedSince,
     isGrayHive: isGrayHive, feedInfo: feedInfo, feederInfo: feederInfo, FEED_KINDS: FEED_KINDS, ringStatus: ringStatus, hiveColor: hiveColor, strengthOf: strengthOf, staleDays: staleDays, counters: counters,
     programSteps: programSteps, parseDays: parseDays, tComplete: tComplete, doneDate: doneDate, WASPS: WASPS, LEVELS: LEVELS, LEVEL_SCORE: LEVEL_SCORE, BAITS: BAITS, baitAt: baitAt, lastTrapCheck: lastTrapCheck, baitStats: baitStats, trapTasks: trapTasks, varroaIndicators: varroaIndicators, calendarTasks: calendarTasks, seasonFor: seasonFor
@@ -1070,7 +1100,7 @@ if (typeof module !== 'undefined') module.exports = L;
   var T = L.todayISO;
 
   /* ---------------- state ---------------- */
-  var COLS = ['expenses', 'payments', 'debts', 'hives', 'materials', 'flora', 'traps', 'wasps', 'archive', 'settings'];
+  var COLS = ['expenses', 'payments', 'debts', 'hives', 'materials', 'flora', 'traps', 'wasps', 'archive', 'harvests', 'settings'];
   var S = {
     view: 'kovanlar', hiveId: null, tab: 'checks', menu: false,
     data: {}, loaded: {}, mode: 'loading', editable: false, assets: null,
@@ -1197,22 +1227,24 @@ if (typeof module !== 'undefined') module.exports = L;
 
   function checkTipBase(lc) { return lc ? '\nSon kontrol: ' + L.fmtD(lc.date) : '\nHenüz kontrol kaydı yok'; }
   function stageHtml(h) {
-    var today = T(), lc = L.lastCheck(h), rs = L.ringStatus(h, today), w = !!h.wintering;
-    var color = L.hiveColor(h, today), base = checkTipBase(lc), out = [];
+    var today = T(), lc0 = L.lastCheck(h), lc = L.knownCheck(h), rs = L.ringStatus(h, today), w = !!h.wintering;
+    var color = L.hiveColor(h, today), base0 = checkTipBase(lc0), out = [];
+    var fb = function (k) { var d = lc && lc._from && lc._from[k]; return !lc0 ? base0 : !d ? base0 + '\nHiç değerlendirilmedi' : d !== lc0.date ? '\n' + L.fmtD(d) + ' kontrolünden (son kontrolde değerlendirilmedi)' : base0; };
+    var base = base0;
     var C = { x: 88, y: 82 }, R = 62, d = R * 0.7071;
     var P = { pop: [C.x, C.y - R], frames: [C.x + d, C.y - d], honey: [C.x + R, C.y], pollen: [C.x + d, C.y + d], seen: [C.x, C.y + R], pattern: [C.x - d, C.y + d], disease: [C.x - R, C.y], pest: [C.x - d, C.y - d] };
     function add(k, st, g, tip, text) { out.push(hexBtn({ st: wst(st, w), g: g, text: text, tip: tip, x: Math.round(P[k][0]), y: Math.round(P[k][1]), s: 26 })); }
-    add('pop', rs.pop, 'bee', 'Popülasyon: ' + (lc && lc.pop ? L.lab(L.POP, lc.pop) : '—') + base);
+    add('pop', rs.pop, 'bee', 'Popülasyon: ' + (lc && lc.pop ? L.lab(L.POP, lc.pop) : '—') + fb('pop'));
     var fr = lc && lc.frames, frT = fr && fr.total != null ? fr.total : (lc && lc.beeFrames != null ? lc.beeFrames : null);
-    add('frames', rs.frames, null, fr ? 'Çerçeve · Toplam ' + (fr.total != null ? fr.total : '—') + '\nBallı ' + (fr.honey != null ? fr.honey : '—') + ' · Yavrulu ' + (fr.brood != null ? fr.brood : '—') + ' · Polenli ' + (fr.pollen != null ? fr.pollen : '—') + base : (lc && lc.beeFrames != null ? 'Arılı çerçeve: ' + lc.beeFrames + base : 'Çerçeve sayısı girilmedi' + base), frT != null ? String(frT) : '–');
-    add('honey', rs.honey, 'honey', 'Bal stoku: ' + (lc && lc.honey ? L.lab(L.STOCK, lc.honey) : '—') + base);
-    add('pollen', rs.pollen, 'pollen', 'Polen stoku: ' + (lc && lc.pollen ? L.lab(L.STOCK, lc.pollen) : '—') + base);
-    var seenTxt = lc && lc.seen ? (lc.seen.indexOf('hicbiri') >= 0 ? 'Hiçbiri' : lc.seen.map(function (s) { return L.lab(L.SEEN, s); }).join(', ')) : '—';
-    add('seen', rs.seen, 'brood', 'Kovanda görülen: ' + seenTxt + (rs.seen === 'red' ? '\nAna arı görülmedi' : '') + (lc && lc.queenCell && lc.queenCell !== 'yok' ? '\nAna arı memesi: ' + L.lab(L.QCELL, lc.queenCell) : '') + base);
-    add('pattern', rs.pattern, 'pattern', 'Yumurtlama düzeni: ' + (lc && lc.pattern ? L.lab(L.PATTERN, lc.pattern) : '—') + base);
-    add('disease', rs.disease, 'disease', 'Hastalık: ' + (lc ? (lc.disease === 'var' ? 'Var' + (L.diseaseText(lc) ? ' — ' + L.diseaseText(lc) : '') : lc.disease === 'yok' ? 'Yok' : '—') : '—') + base);
+    add('frames', rs.frames, null, fr ? 'Çerçeve · Toplam ' + (fr.total != null ? fr.total : '—') + '\nBallı ' + (fr.honey != null ? fr.honey : '—') + ' · Yavrulu ' + (fr.brood != null ? fr.brood : '—') + ' · Polenli ' + (fr.pollen != null ? fr.pollen : '—') + fb('frames') : (lc && lc.beeFrames != null ? 'Arılı çerçeve: ' + lc.beeFrames + fb('frames') : 'Çerçeve sayısı girilmedi' + fb('frames')), frT != null ? String(frT) : '–');
+    add('honey', rs.honey, 'honey', 'Bal stoku: ' + (lc && lc.honey ? L.lab(L.STOCK, lc.honey) : '—') + fb('honey'));
+    add('pollen', rs.pollen, 'pollen', 'Polen stoku: ' + (lc && lc.pollen ? L.lab(L.STOCK, lc.pollen) : '—') + fb('pollen'));
+    var seenTxt = lc && lc.seen && lc.seen.length ? (lc.seen.indexOf('hicbiri') >= 0 ? 'Hiçbiri' : lc.seen.map(function (s) { return L.lab(L.SEEN, s); }).join(', ')) : '—';
+    add('seen', rs.seen, 'brood', 'Kovanda görülen: ' + seenTxt + (rs.seen === 'red' ? '\nAna arı görülmedi' : '') + (lc && lc.queenCell && lc.queenCell !== 'yok' ? '\nAna arı memesi: ' + L.lab(L.QCELL, lc.queenCell) : '') + fb('seen'));
+    add('pattern', rs.pattern, 'pattern', 'Yumurtlama düzeni: ' + (lc && lc.pattern ? L.lab(L.PATTERN, lc.pattern) : '—') + fb('pattern'));
+    add('disease', rs.disease, 'disease', 'Hastalık: ' + (lc ? (lc.disease === 'var' ? 'Var' + (L.diseaseText(lc) ? ' — ' + L.diseaseText(lc) : '') : lc.disease === 'yok' ? 'Yok' : '—') : '—') + fb('disease'));
     var c = L.lastCount(h), pct = L.countPct(c);
-    var pestTip = 'Zararlı: ' + (lc ? (lc.pest === 'var' ? 'Var' + (L.pestText(lc) ? ' — ' + L.pestText(lc) : '') : lc.pest === 'yok' ? 'Yok' : '—') : '—') + base;
+    var pestTip = 'Zararlı: ' + (lc ? (lc.pest === 'var' ? 'Var' + (L.pestText(lc) ? ' — ' + L.pestText(lc) : '') : lc.pest === 'yok' ? 'Yok' : '—') : '—') + fb('pest');
     if (c) pestTip += '\nVarroa yükü ' + L.pct1(pct) + ' · ' + L.fmtD(c.date) + '\n' + L.lab(L.COUNT_METHODS, c.method) + ', ' + c.bees + ' arı, ' + c.mites + ' varroa' + (pct >= 3 ? '\n%3 ve üzeri: müdahale gerekli' : '');
     add('pest', rs.pest, 'pest', pestTip);
     /* bitişik simgeler: ana altıgenin kenarına ortalı, petek gibi kenar kenara (26'lık ana + 17'lik küçük altıgen) */
@@ -1239,7 +1271,7 @@ if (typeof module !== 'undefined') module.exports = L;
     /* köşeler */
     if (w) out.push(hexBtn({ st: 'ice', g: 'snow', tip: 'Kışlatma modunda\nKovan kış için hazırlandı', x: 13, y: 13, s: 24 }));
     var str = L.strengthOf(h);
-    if (str) out.push(hexBtn({ st: wst(str === 'weak' ? 'red' : str === 'strong' ? 'gold' : 'green', w), g: 'muscle', tip: 'Değerlendirme: ' + L.lab(L.STRENGTH, str) + base, x: 163, y: 13, s: 24 }));
+    if (str) out.push(hexBtn({ st: wst(str === 'weak' ? 'red' : str === 'strong' ? 'gold' : 'green', w), g: 'muscle', tip: 'Değerlendirme: ' + L.lab(L.STRENGTH, str) + fb('strength'), x: 163, y: 13, s: 24 }));
     return '<div class="stage st-' + (w ? 'ice' : color) + '">' + hiveSvg(h.size) + out.join('') + '</div>';
   }
   function varroaRow(h) {
@@ -1280,7 +1312,7 @@ if (typeof module !== 'undefined') module.exports = L;
 
   /* ---------------- shell ---------------- */
   var NAV = SAHA ? [['kovanlar', 'Kovanlar', 'hive'], ['esek', 'Eşek Arısı', 'wasp'], ['takvim', 'Takvim', 'cal'], ['senkron', 'Senkron', 'sync']]
-    : [['masraf', 'Masraf takip', 'coin'], ['kovanlar', 'Kovan takip', 'hive'], ['esek', 'Eşek Arısı', 'wasp'], ['flora', 'Flora', 'flower'], ['takvim', 'Arıcılık Takvimi', 'cal']];
+    : [['masraf', 'Masraf takip', 'coin'], ['kovanlar', 'Kovan takip', 'hive'], ['esek', 'Eşek Arısı', 'wasp'], ['flora', 'Flora', 'flower'], ['hasat', 'Hasat', 'jar'], ['takvim', 'Arıcılık Takvimi', 'cal']];
   function brandHtml() {
     var st = settings(), can = S.editable && S.assets;
     var logo = st.logo ? '<img src="/_blob/' + esc(st.logo) + '" alt="TOLUKLAR amblemi">' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + HEX + '" fill="var(--accent)"/><use href="#g-bee" x="6.5" y="6" width="11" height="12" style="color:var(--on-accent);--hbg:var(--accent)"/></svg>';
@@ -1308,6 +1340,7 @@ if (typeof module !== 'undefined') module.exports = L;
     else if (v === 'esek') html = viewWasp();
     else if (v === 'senkron') html = viewSync();
     else if (v === 'arsiv') html = viewArchive();
+    else if (v === 'hasat') html = viewHarvest();
     else html = viewMasraf();
     var bn = '';
     if (SAHA) { var nch = SZ ? sahaChanges().length : 0; if (nch && v !== 'senkron') bn = '<div class="banner"><span>Telefonda <b>' + nch + '</b> değişiklik siteye gönderilmeyi bekliyor.</span><a class="btn sm" href="#senkron">Senkron</a></div>'; }
@@ -1319,7 +1352,7 @@ if (typeof module !== 'undefined') module.exports = L;
   }
   function route() {
     var h = (location.hash || '').replace('#', '');
-    if ((SAHA ? ['kovanlar', 'takvim', 'esek', 'senkron'] : ['masraf', 'kovanlar', 'takvim', 'esek', 'flora', 'arsiv']).indexOf(h) >= 0) { if (S.view !== h || S.hiveId) { S.view = h; S.hiveId = null; S.arcId = null; S.menu = false; window.scrollTo(0, 0); } }
+    if ((SAHA ? ['kovanlar', 'takvim', 'esek', 'senkron'] : ['masraf', 'kovanlar', 'takvim', 'esek', 'flora', 'arsiv', 'hasat']).indexOf(h) >= 0) { if (S.view !== h || S.hiveId) { S.view = h; S.hiveId = null; S.arcId = null; S.menu = false; window.scrollTo(0, 0); } }
     else if (h === 'borclar' || h === 'pivot') S.view = 'masraf';
     render();
   }
@@ -1783,16 +1816,16 @@ if (typeof module !== 'undefined') module.exports = L;
       var fr = c.frames, seen = (c.seen || []).indexOf('hicbiri') >= 0 ? 'Hiçbiri' : (c.seen || []).map(function (s) { return L.lab(L.SEEN, s); }).join(', ');
       var feeds = c.feed === 'var' ? (c.feeds || []).map(function (f) { return f.name; }).filter(Boolean).join(', ') : '';
       var st = c.strength;
-      return '<div class="item"><div class="ih"><b>' + L.fmtD(c.date) + '</b><span style="display:flex;gap:6px;align-items:center">' + (st ? '<span class="pill ' + (st === 'weak' ? 'red' : st === 'strong' ? 'gold' : 'green') + '">' + L.lab(L.STRENGTH, st) + '</span>' : '') + editBtns('chk', c.id) + '</span></div>' +
+      return '<div class="item"><div class="ih"><b>' + L.fmtD(c.date) + (c.quick ? ' <span class="chip">Hızlı bakış</span>' : '') + '</b><span style="display:flex;gap:6px;align-items:center">' + (st && st !== 'nd' ? '<span class="pill ' + (st === 'weak' ? 'red' : st === 'strong' ? 'gold' : 'green') + '">' + L.lab(L.STRENGTH, st) + '</span>' : '') + editBtns('chk', c.id) + '</span></div>' +
         '<div class="ib"><span>Popülasyon <em>' + esc(L.lab(L.POP, c.pop) || '—') + '</em></span>' +
         (fr ? '<span>Çerçeve <em>' + (fr.total != null ? fr.total : '—') + '</em> (ballı ' + (fr.honey != null ? fr.honey : '—') + ', yavrulu ' + (fr.brood != null ? fr.brood : '—') + ', polenli ' + (fr.pollen != null ? fr.pollen : '—') + ')</span>' : c.beeFrames != null ? '<span>Arılı çerçeve <em>' + c.beeFrames + '</em></span>' : '') +
         '<span>Bal <em>' + esc(L.lab(L.STOCK, c.honey) || '—') + '</em></span><span>Polen <em>' + esc(L.lab(L.STOCK, c.pollen) || '—') + '</em></span>' +
-        '<span>Kek <em>' + (c.feed === 'var' ? 'Var' + (feeds ? ': ' + esc(feeds) : '') : c.feed === 'yok' ? 'Yok' : '—') + '</em></span>' +
-        (c.feeder ? '<span>Şurupluk <em>' + (c.feeder === 'var' ? 'Var' : 'Yok') + '</em></span>' : '') +
+        '<span>Kek <em>' + (c.feed === 'var' ? 'Var' + (feeds ? ': ' + esc(feeds) : '') : c.feed === 'yok' ? 'Yok' : c.feed === 'nd' ? 'Değerlendirilmedi' : '—') + '</em></span>' +
+        (c.feeder ? '<span>Şurupluk <em>' + (c.feeder === 'var' ? 'Var' : c.feeder === 'nd' ? 'Değerlendirilmedi' : 'Yok') + '</em></span>' : '') +
         '<span>Görülen <em>' + esc(seen || '—') + '</em></span><span>Yumurtlama <em>' + esc(L.lab(L.PATTERN, c.pattern) || '—') + '</em></span>' +
         (c.queenCell ? '<span>Ana arı memesi <em>' + esc(L.lab(L.QCELL, c.queenCell)) + '</em></span>' : '') +
-        '<span>Hastalık <em>' + (c.disease === 'var' ? 'Var' + (L.diseaseText(c) ? ': ' + esc(L.diseaseText(c)) : '') : c.disease === 'yok' ? 'Yok' : '—') + '</em></span>' +
-        '<span>Zararlı <em>' + (c.pest === 'var' ? 'Var' + (L.pestText(c) ? ': ' + esc(L.pestText(c)) : '') : c.pest === 'yok' ? 'Yok' : '—') + '</em></span>' +
+        '<span>Hastalık <em>' + (c.disease === 'var' ? 'Var' + (L.diseaseText(c) ? ': ' + esc(L.diseaseText(c)) : '') : c.disease === 'yok' ? 'Yok' : c.disease === 'nd' ? 'Değerlendirilmedi' : '—') + '</em></span>' +
+        '<span>Zararlı <em>' + (c.pest === 'var' ? 'Var' + (L.pestText(c) ? ': ' + esc(L.pestText(c)) : '') : c.pest === 'yok' ? 'Yok' : c.pest === 'nd' ? 'Değerlendirilmedi' : '—') + '</em></span>' +
         '<span>Koloni davranışı <em>' + esc(L.lab(L.BEHAVIOR, c.behavior) || '—') + '</em></span>' +
         (c.flight ? '<span>Uçuş deliği <em>' + esc(L.lab(L.FLIGHT, c.flight)) + '</em></span>' : '') +
         (fr && fr.dark != null ? '<span>Kararmış petek <em>' + fr.dark + '</em></span>' : '') + '</div>' +
@@ -1852,38 +1885,43 @@ if (typeof module !== 'undefined') module.exports = L;
   function feedMats() { return S.data.materials.filter(function (m) { return m.purpose === 'besleme'; }); }
   function matLabel(m) { return ((m.brand ? m.brand + ' ' : '') + (m.name || '')).trim(); }
   function feedRow(v, i) { return '<input class="inp" name="feedname" list="dl-feed" maxlength="80" value="' + esc(v || '') + '" placeholder="' + (i ? 'Başka yem varsa seçin veya yazın' : 'Listeden seçin veya yazın') + '" aria-label="Yem ' + (i + 1) + '">'; }
+  /* her soruda ilk seçenek “Değerlendirilmedi”; yeni kontrolde varsayılan */
+  var ND = ['nd', 'Değerlendirilmedi'];
+  function ndRadios(name, list, sel, colorFn) { return radios(name, [ND].concat(list), sel || 'nd', function (k) { return k === 'nd' ? 'nd' : colorFn ? colorFn(k) : ''; }); }
   function checkForm(x, c) {
     var isNew = !c, lc = L.lastCheck(x);
     c = c || { date: T(), frames: lc && lc.frames ? clone(lc.frames) : { total: x.capacity || 10 } };
-    var fr = c.frames || {};
+    var fr = c.frames || {}, frND = isNew || !(c.frames && c.frames.total != null);
+    var cmode = isNew ? (ls('ad.cmode') || 'full') : (c.quick ? 'quick' : 'full');
     var feeds = c.feed === 'var' ? (c.feeds || []).map(function (f) { return f.name; }) : [];
     var nd = c.nextDate || '', ntask = c.nextTask || '';
-    var h = '<form id="f-chk" novalidate>' +
+    var h = '<form id="f-chk" class="' + (cmode === 'quick' ? 'quick' : '') + '" novalidate>' +
       '<div class="f"><label for="c-date">Kontrol tarihi</label><input class="inp" id="c-date" name="date" type="date" value="' + esc(c.date) + '" max="' + T() + '"></div>' +
-      '<div class="f"><span class="lb">1. Uçuş deliği aktivitesi</span>' + radios('flight', L.FLIGHT, c.flight) + '</div>' +
-      '<div class="f"><span class="lb">2. Popülasyon</span>' + radios('pop', L.POP, c.pop, function (k) { return k === 'cokdusuk' ? 'red' : k === 'dusuk' ? 'orange' : 'green'; }) + '</div>' +
-      '<div class="f"><span class="lb">3. Çerçeve sayıları</span><div class="g4" style="grid-template-columns:repeat(auto-fit,minmax(88px,1fr))">' +
+      '<div class="f"><span class="lb">Kontrol türü</span>' + radios('cmode', [['quick', 'Hızlı bakış (üstten)'], ['full', 'Tam kontrol']], cmode) + '<span class="hint">Hızlı bakışta yalnızca kovanı açmadan ya da üstten görülebilen sorular çıkar. Değerlendirmediğiniz sorular “Değerlendirilmedi” kalır; kovan simgeleri o sorular için son değerlendirilen kontrolü gösterir.</span></div>' +
+      '<div class="f"><span class="lb">1. Uçuş deliği aktivitesi</span>' + ndRadios('flight', L.FLIGHT, c.flight) + '</div>' +
+      '<div class="f"><span class="lb">2. Popülasyon</span>' + ndRadios('pop', L.POP, c.pop, function (k) { return k === 'cokdusuk' ? 'red' : k === 'dusuk' ? 'orange' : 'green'; }) + '</div>' +
+      '<div class="f qf"><span class="lb">3. Çerçeve sayıları</span><label class="opt chk o-nd" style="justify-self:start;margin-bottom:6px"><input type="checkbox" name="fr_nd" id="c-fr-nd"' + (frND ? ' checked' : '') + '><span>Değerlendirilmedi</span></label><div class="g4" id="c-frs"' + (frND ? ' hidden' : '') + ' style="grid-template-columns:repeat(auto-fit,minmax(88px,1fr))">' +
       [['total', 'Toplam'], ['honey', 'Ballı'], ['brood', 'Yavrulu'], ['pollen', 'Polenli'], ['dark', 'Kararmış petek']].map(function (k) { return '<div class="f"><label for="c-fr-' + k[0] + '" style="font-weight:600;font-size:12.5px">' + k[1] + '</label><input class="inp num" id="c-fr-' + k[0] + '" name="fr_' + k[0] + '" type="number" min="0" max="40" inputmode="numeric" value="' + esc(fr[k[0]] != null ? fr[k[0]] : '') + '"></div>'; }).join('') +
       '</div><span class="hint">Bir çerçeve hem ballı hem yavrulu olabilir; her biri toplamı aşamaz. Kararmış petek: yenilenmesi gereken eski, koyulaşmış petek sayısı.</span></div>' +
-      '<div class="g2"><div class="f"><span class="lb">4. Bal stoku</span>' + radios('honey', L.STOCK_FORM, c.honey, stC) + '</div><div class="f"><span class="lb">5. Polen stoku</span>' + radios('pollen', L.STOCK_FORM, c.pollen, stC) + '</div></div>' +
-      '<div class="f"><span class="lb">6. Kovanda kek var mı?</span>' + radios('feed', [['var', 'Var'], ['yok', 'Yok']], c.feed) +
+      '<div class="g2"><div class="f"><span class="lb">4. Bal stoku</span>' + ndRadios('honey', L.STOCK_FORM, c.honey, stC) + '</div><div class="f qf"><span class="lb">5. Polen stoku</span>' + ndRadios('pollen', L.STOCK_FORM, c.pollen, stC) + '</div></div>' +
+      '<div class="f"><span class="lb">6. Kovanda kek var mı?</span>' + ndRadios('feed', [['var', 'Var'], ['yok', 'Yok']], c.feed) +
       '<div id="feed-rows" style="display:grid;gap:6px;margin-top:6px"' + (c.feed === 'var' ? '' : ' hidden') + '>' + feeds.concat(['']).map(feedRow).join('') + '</div>' +
       '<datalist id="dl-feed">' + feedMats().map(function (m) { return '<option value="' + esc(matLabel(m)) + '">'; }).join('') + '</datalist></div>' +
-      '<div class="f"><span class="lb">7. Kovanda şurupluk var mı?</span>' + radios('feeder', [['var', 'Var'], ['yok', 'Yok']], c.feeder) + '</div>' +
-      '<div class="f"><span class="lb">8. Kovanda görülen ana ve yavrular</span><div class="opts" id="seen-box">' +
-      [['hepsi', 'Hepsi']].concat(L.SEEN).concat([['hicbiri', 'Hiçbiri']]).map(function (o) {
-        var on = o[0] === 'hepsi' ? (c.seen && L.SEEN.every(function (s) { return c.seen.indexOf(s[0]) >= 0; })) : (c.seen || []).indexOf(o[0]) >= 0;
-        return '<label class="opt chk"><input type="checkbox" name="seen" value="' + o[0] + '"' + (on ? ' checked' : '') + '><span>' + o[1] + '</span></label>';
+      '<div class="f"><span class="lb">7. Kovanda şurupluk var mı?</span>' + ndRadios('feeder', [['var', 'Var'], ['yok', 'Yok']], c.feeder) + '</div>' +
+      '<div class="f qf"><span class="lb">8. Kovanda görülen ana ve yavrular</span><div class="opts" id="seen-box">' +
+      [ND, ['hepsi', 'Hepsi']].concat(L.SEEN).concat([['hicbiri', 'Hiçbiri']]).map(function (o) {
+        var on = o[0] === 'nd' ? L.isND(c.seen) : o[0] === 'hepsi' ? (c.seen && L.SEEN.every(function (s) { return c.seen.indexOf(s[0]) >= 0; })) : (c.seen || []).indexOf(o[0]) >= 0;
+        return '<label class="opt chk' + (o[0] === 'nd' ? ' o-nd' : '') + '"><input type="checkbox" name="seen" value="' + o[0] + '"' + (on ? ' checked' : '') + '><span>' + o[1] + '</span></label>';
       }).join('') + '</div></div>' +
-      '<div class="f"><span class="lb">9. Ana arı memesi var mı?</span>' + radios('qcell', L.QCELL, c.queenCell || (isNew ? 'yok' : ''), function (k) { return (k === 'ogul' || k === 'acil') ? 'orange' : ''; }) + '<span class="hint">Oğul memesi veya acil meme işaretlenirse kovan turuncu olur.</span></div>' +
-      '<div class="f"><span class="lb">10. Ananın yumurtlama düzeni</span>' + radios('pattern', L.PATTERN_FORM, c.pattern, function (k) { return (k === 'yok' || k === 'cokduzensiz') ? 'red' : k === 'duzensiz' ? 'orange' : 'green'; }) + '</div>' +
-      '<div class="f"><span class="lb">11. Hastalık var mı?</span>' + radios('disease', [['yok', 'Yok'], ['var', 'Var']], c.disease, function (k) { return k === 'var' ? 'red' : 'green'; }) +
+      '<div class="f qf"><span class="lb">9. Ana arı memesi var mı?</span>' + ndRadios('qcell', L.QCELL, c.queenCell, function (k) { return (k === 'ogul' || k === 'acil') ? 'orange' : ''; }) + '<span class="hint">Oğul memesi veya acil meme işaretlenirse kovan turuncu olur.</span></div>' +
+      '<div class="f qf"><span class="lb">10. Ananın yumurtlama düzeni</span>' + ndRadios('pattern', L.PATTERN_FORM, c.pattern, function (k) { return (k === 'yok' || k === 'cokduzensiz') ? 'red' : k === 'duzensiz' ? 'orange' : 'green'; }) + '</div>' +
+      '<div class="f qf"><span class="lb">11. Hastalık var mı?</span>' + ndRadios('disease', [['yok', 'Yok'], ['var', 'Var']], c.disease, function (k) { return k === 'var' ? 'red' : 'green'; }) +
       '<div id="c-dis" class="sub" style="margin:8px 0 0"' + (c.disease === 'var' ? '' : ' hidden') + '>' + checks('diseases', L.DISEASES, c.diseases || (c.diseaseText ? ['diger'] : [])) + '<input class="inp" name="diseaseText" placeholder="Diğer / açıklama" maxlength="120" value="' + esc(c.diseaseText || '') + '" style="margin-top:8px"></div></div>' +
-      '<div class="f"><span class="lb">12. Zararlı var mı?</span>' + radios('pest', [['yok', 'Yok'], ['var', 'Var']], c.pest, function (k) { return k === 'var' ? 'red' : 'green'; }) +
+      '<div class="f qf"><span class="lb">12. Zararlı var mı?</span>' + ndRadios('pest', [['yok', 'Yok'], ['var', 'Var']], c.pest, function (k) { return k === 'var' ? 'red' : 'green'; }) +
       '<div id="c-pest" class="sub" style="margin:8px 0 0"' + (c.pest === 'var' ? '' : ' hidden') + '>' + checks('pests', L.PESTS, c.pests || (c.pestText ? ['diger'] : [])) + '<input class="inp" name="pestText" placeholder="Diğer / açıklama" maxlength="120" value="' + esc(c.pestText || '') + '" style="margin-top:8px"></div></div>' +
-      '<div class="f"><span class="lb">13. Koloni Davranışı</span>' + radios('behavior', L.BEHAVIOR, c.behavior) + '</div>' +
+      '<div class="f"><span class="lb">13. Koloni Davranışı</span>' + ndRadios('behavior', L.BEHAVIOR, c.behavior) + '</div>' +
       '<div class="f"><span class="lb">14. Bu kontrolde ne yaptınız?</span>' + checks('actions', L.ACTIONS, c.actions) + '<input class="inp" name="actionsText" placeholder="Başka bir işlem yaptıysanız yazın" maxlength="200" value="' + esc(c.actionsText || '') + '" style="margin-top:8px"></div>' +
-      '<div class="f"><span class="lb">15. Kovanı nasıl değerlendirirsiniz?</span>' + radios('strength', L.STRENGTH, c.strength, function (k) { return k === 'weak' ? 'red' : k === 'strong' ? 'gold' : 'green'; }) + '</div>' +
+      '<div class="f qf"><span class="lb">15. Kovanı nasıl değerlendirirsiniz?</span>' + ndRadios('strength', L.STRENGTH, c.strength, function (k) { return k === 'weak' ? 'red' : k === 'strong' ? 'gold' : 'green'; }) + '</div>' +
       '<div class="f"><span class="lb">Sonraki ziyarette yapılacak</span><div style="display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:8px"><input class="inp" name="nextTask" id="c-next" maxlength="160" value="' + esc(ntask) + '" placeholder="Örn. ana kontrolü, kat ver"><input class="inp" name="nextDate" id="c-nextd" type="date" value="' + esc(nd) + '" aria-label="Yapılacak tarih"></div><span class="hint">Tarih girerseniz iş Arıcılık Takvimi’ne düşer.</span></div>' +
       '<div class="f"><label for="c-note">Not</label><textarea class="inp" id="c-note" name="note" maxlength="1500">' + esc(c.note || '') + '</textarea></div>' +
       '<p class="err" id="c-err" role="alert"></p><div class="fbtns"><button class="btn primary" type="submit">' + (isNew ? 'Kontrolü kaydet' : 'Değişiklikleri kaydet') + '</button><button class="btn" type="button" data-a="close">Vazgeç</button></div></form>';
@@ -1895,9 +1933,14 @@ if (typeof module !== 'undefined') module.exports = L;
           if (t.name === 'feed') $('#feed-rows').hidden = t.value !== 'var';
           if (t.name === 'disease') $('#c-dis').hidden = t.value !== 'var';
           if (t.name === 'pest') $('#c-pest').hidden = t.value !== 'var';
+          if (t.name === 'fr_nd') $('#c-frs').hidden = t.checked;
+          if (t.name === 'cmode') { f.classList.toggle('quick', t.value === 'quick'); ls('ad.cmode', t.value); }
           if (t.name === 'seen') {
             var box = $$('input[name=seen]', f), by = {}; box.forEach(function (b) { by[b.value] = b; });
-            if (t.value === 'hepsi') { L.SEEN.forEach(function (s) { by[s[0]].checked = t.checked; }); if (t.checked) by.hicbiri.checked = false; }
+            if (t.value === 'nd') { if (t.checked) box.forEach(function (b) { if (b !== t) b.checked = false; }); }
+            else if (t.checked) by.nd.checked = false;
+            if (t.value === 'nd') {}
+            else if (t.value === 'hepsi') { L.SEEN.forEach(function (s) { by[s[0]].checked = t.checked; }); if (t.checked) by.hicbiri.checked = false; }
             else if (t.value === 'hicbiri') { if (t.checked) { by.hepsi.checked = false; L.SEEN.forEach(function (s) { by[s[0]].checked = false; }); } }
             else { if (t.checked) by.hicbiri.checked = false; by.hepsi.checked = L.SEEN.every(function (s) { return by[s[0]].checked; }); }
           }
@@ -1910,27 +1953,28 @@ if (typeof module !== 'undefined') module.exports = L;
       },
       submit: function (f) {
         var err = function (m) { $('#c-err').textContent = m; };
-        var fr = {}; var bad = false;
-        ['total', 'honey', 'brood', 'pollen', 'dark'].forEach(function (k) { var v = val(f, 'fr_' + k); if (v === '') fr[k] = null; else { var n = Number(v); if (!Number.isInteger(n) || n < 0) bad = true; fr[k] = n; } });
+        var fr = {}; var bad = false, frNd = f.elements.fr_nd.checked;
+        ['total', 'honey', 'brood', 'pollen', 'dark'].forEach(function (k) { var v = frNd ? '' : val(f, 'fr_' + k); if (v === '') fr[k] = null; else { var n = Number(v); if (!Number.isInteger(n) || n < 0) bad = true; fr[k] = n; } });
         if (bad) return err('Çerçeve sayıları 0 veya daha büyük tam sayı olmalı.');
         if (fr.total == null && (fr.honey != null || fr.brood != null || fr.pollen != null)) return err('Önce toplam çerçeve sayısını girin.');
         if (fr.total != null && ['honey', 'brood', 'pollen', 'dark'].some(function (k) { return fr[k] != null && fr[k] > fr.total; })) return err('Ballı, yavrulu, polenli veya kararmış petek sayısı toplamı aşamaz.');
-        var seen = cv(f, 'seen').filter(function (s) { return s !== 'hepsi'; });
+        var seen = cv(f, 'seen').filter(function (s) { return s !== 'hepsi'; }); if (seen.indexOf('nd') >= 0) seen = ['nd'];
         var need = [['pop', 'popülasyonu'], ['honey', 'bal stokunu'], ['pollen', 'polen stokunu'], ['feed', 'kek durumunu'], ['feeder', 'şurupluk durumunu'], ['pattern', 'yumurtlama düzenini'], ['disease', 'hastalık durumunu'], ['pest', 'zararlı durumunu'], ['behavior', 'koloni davranışını'], ['strength', 'kovan değerlendirmesini']];
         for (var i = 0; i < need.length; i++) if (!rv(f, need[i][0])) return err('Lütfen ' + need[i][1] + ' seçin.');
-        if (!seen.length) return err('Kovanda görülenlerden en az birini seçin (görülmediyse “Hiçbiri”).');
+        if (!seen.length) return err('Kovanda görülenlerden en az birini seçin (bakmadıysanız “Değerlendirilmedi”, görülmediyse “Hiçbiri”).');
         if (!val(f, 'date')) return err('Kontrol tarihini seçin.');
         if (val(f, 'nextDate') && !val(f, 'nextTask')) return err('Sonraki ziyarette ne yapılacağını yazın.');
         var feedList = rv(f, 'feed') === 'var' ? $$('input[name=feedname]', f).map(function (el) { return el.value.trim(); }).filter(Boolean).map(function (n) {
           var m = feedMats().find(function (mm) { return matLabel(mm) === n; }); return m ? { name: n, productId: m.id, brand: m.brand || '', usage: m.usage || '' } : { name: n };
         }) : [];
         var y = clone(x), rec = Object.assign({}, c, {
-          id: c.id || uid('c'), date: val(f, 'date'), pop: rv(f, 'pop'), frames: fr, honey: rv(f, 'honey'), pollen: rv(f, 'pollen'), feed: rv(f, 'feed'), feeds: feedList, feeder: rv(f, 'feeder') || null,
+          id: c.id || uid('c'), date: val(f, 'date'), pop: rv(f, 'pop'), frames: frNd ? null : fr, honey: rv(f, 'honey'), pollen: rv(f, 'pollen'), feed: rv(f, 'feed'), feeds: feedList, feeder: rv(f, 'feeder') || null,
           seen: seen, pattern: rv(f, 'pattern'), disease: rv(f, 'disease'), diseases: rv(f, 'disease') === 'var' ? cv(f, 'diseases') : [], diseaseText: rv(f, 'disease') === 'var' ? val(f, 'diseaseText') : '', pest: rv(f, 'pest'), pests: rv(f, 'pest') === 'var' ? cv(f, 'pests') : [], pestText: rv(f, 'pest') === 'var' ? val(f, 'pestText') : '',
           flight: rv(f, 'flight'), queenCell: rv(f, 'qcell'), actions: cv(f, 'actions'), actionsText: val(f, 'actionsText'), nextTask: val(f, 'nextTask'), nextDate: val(f, 'nextDate') || null, nextDone: (c.nextDate === val(f, 'nextDate') && c.nextTask === val(f, 'nextTask')) ? !!c.nextDone : false,
-          behavior: rv(f, 'behavior'), note: val(f, 'note'), strength: rv(f, 'strength'), created: c.created || Date.now()
+          behavior: rv(f, 'behavior'), note: val(f, 'note'), strength: rv(f, 'strength'), quick: rv(f, 'cmode') === 'quick', created: c.created || Date.now()
         });
         delete rec.beeFrames;
+        if (rec.quick) { rec.frames = null; rec.pollen = 'nd'; rec.seen = ['nd']; rec.queenCell = 'nd'; rec.pattern = 'nd'; rec.disease = 'nd'; rec.diseases = []; rec.diseaseText = ''; rec.pest = 'nd'; rec.pests = []; rec.pestText = ''; rec.strength = 'nd'; }
         upsertIn(hiveArr(y, 'checks'), rec); delete y.example;
         closeModal(); S.tab = 'checks'; saveHive(y); toast(isNew ? 'Kontrol kaydedildi' : 'Kontrol güncellendi');
       }
@@ -2654,6 +2698,66 @@ if (typeof module !== 'undefined') module.exports = L;
   }
 
   /* =================================================================== */
+  /*                               HASAT                                  */
+  /* =================================================================== */
+  var HONEY_TYPES = ['Kestane', 'Meşe (salgı)', 'Çam (salgı)', 'Çiçek', 'Karışık / polifloral', 'Koyu'];
+  function kgTxt(v) { return (Math.round(v * 10) / 10).toLocaleString('tr-TR') + ' kg'; }
+  function harvestChart(byY, years) {
+    var max = Math.max.apply(null, years.map(function (y) { return byY[y] || 0; }).concat([1]));
+    var W = 640, H = 250, pl = 8, pr = 8, pt = 30, pb = 40, n = years.length, slot = (W - pl - pr) / n, bw = Math.min(64, slot * 0.6);
+    var nice = Math.pow(10, Math.floor(Math.log10(max))); var top = Math.ceil(max / nice) * nice; if (top / nice > 5) nice *= 2; var ticks = []; for (var t = 0; t <= top + 1e-9; t += nice) ticks.push(t);
+    var sy = function (v) { return pt + (H - pt - pb) * (1 - v / top); };
+    var g = ticks.map(function (t) { return '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + sy(t) + '" y2="' + sy(t) + '" class="hg-grid"/>'; }).join('');
+    var bars = years.map(function (y, i) {
+      var v = byY[y] || 0, x = pl + slot * i + (slot - bw) / 2, yy = sy(v), h = Math.max(0, H - pb - yy), r = Math.min(4, h / 2);
+      var path = h > 0 ? 'M' + x + ',' + (H - pb) + 'V' + (yy + r) + 'Q' + x + ',' + yy + ' ' + (x + r) + ',' + yy + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + yy + ' ' + (x + bw) + ',' + (yy + r) + 'V' + (H - pb) + 'Z' : '';
+      var tip = y + ' hasadı: ' + kgTxt(v);
+      return '<g class="hg-bar" data-tip="' + esc(tip) + '" aria-label="' + esc(tip) + '" tabindex="0"><rect x="' + (pl + slot * i) + '" y="' + pt + '" width="' + slot + '" height="' + (H - pt - pb) + '" fill="transparent"/>' + (path ? '<path d="' + path + '" class="hg-fill"/>' : '') +
+        '<text x="' + (x + bw / 2) + '" y="' + (yy - 7) + '" class="hg-val">' + (v ? (Math.round(v * 10) / 10).toLocaleString('tr-TR') : '–') + '</text><text x="' + (x + bw / 2) + '" y="' + (H - 9) + '" class="hg-yr">' + y + '</text></g>';
+    }).join('');
+    return '<svg class="hg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Yıllara göre bal hasadı (kg)">' + g + '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + (H - pb) + '" y2="' + (H - pb) + '" class="hg-base"/>' + bars + '</svg>';
+  }
+  function viewHarvest() {
+    var list = S.data.harvests.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; }), Y = T().slice(0, 4), PY = String(Number(Y) - 1);
+    var byY = {}, hiveY = {}, typeY = {};
+    list.forEach(function (h) { var y = (h.date || '').slice(0, 4); byY[y] = (byY[y] || 0) + (Number(h.kg) || 0); if (h.hives) hiveY[y] = Math.max(hiveY[y] || 0, Number(h.hives)); /* aynı kovanlardan birden çok hasat: en yüksek kovan sayısı */ var t = h.honeyType || 'Belirtilmemiş'; (typeY[y] = typeY[y] || {})[t] = (typeY[y][t] || 0) + (Number(h.kg) || 0); });
+    var h = '<div class="ph"><div><h1>Bal Hasadı</h1><p>Hasat ettiğiniz bal miktarı; yıllara göre değişim.</p></div>' + (S.editable ? '<div class="btns"><button class="btn primary" type="button" data-a="hs-add">' + ic('plus') + 'Hasat ekle</button></div>' : '') + '</div>';
+    if (!list.length) return h + '<div class="empty"><b>Henüz hasat kaydı yok</b>' + (S.editable ? '“Hasat ekle” ile tarih, miktar (kg) ve bal çeşidini girin; yıllara göre grafik burada oluşur.' : '') + '</div>';
+    var ys = Object.keys(byY).filter(Boolean).sort(), minY = Number(ys[0]), maxY = Math.max(Number(ys[ys.length - 1]), Number(Y)), years = []; for (var yy = minY; yy <= maxY; yy++) years.push(String(yy));
+    var cur = byY[Y] || 0, prev = byY[PY] || 0, all = list.reduce(function (s, x) { return s + (Number(x.kg) || 0); }, 0);
+    var ch = prev ? Math.round((cur - prev) / prev * 100) : null, per = hiveY[Y] ? cur / hiveY[Y] : null;
+    h += '<div class="kpis" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:14px"><div class="kpi total"><span>' + Y + ' hasadı</span><b>' + kgTxt(cur) + '</b></div><div class="kpi"><span>' + PY + ' hasadı</span><b>' + kgTxt(prev) + '</b></div>' +
+      '<div class="kpi"><span>Geçen yıla göre</span><b>' + (ch == null ? '—' : (ch > 0 ? '+' : '') + ch + '%') + '</b></div><div class="kpi"><span>' + (per != null ? 'Kovan başına (' + Y + ')' : 'Toplam (tüm yıllar)') + '</span><b>' + (per != null ? kgTxt(per) : kgTxt(all)) + '</b></div></div>';
+    h += '<section class="sec"><h2>Yıllara göre hasat <small>kg</small></h2><div class="hg-wrap">' + harvestChart(byY, years) + '</div></section>';
+    h += '<section class="sec"><h2>Yıllık özet</h2><div class="tbl-wrap"><table><thead><tr><th>Yıl</th><th class="n">Toplam</th><th class="n">Kovan</th><th class="n">Kovan başına</th><th>Çeşitlere göre</th></tr></thead><tbody>' + years.slice().reverse().filter(function (y) { return byY[y]; }).map(function (y) {
+      return '<tr><td><b>' + y + '</b></td><td class="n">' + kgTxt(byY[y]) + '</td><td class="n">' + (hiveY[y] || '—') + '</td><td class="n">' + (hiveY[y] ? kgTxt(byY[y] / hiveY[y]) : '—') + '</td><td>' + Object.keys(typeY[y]).map(function (t) { return esc(t) + ' ' + kgTxt(typeY[y][t]); }).join(' · ') + '</td></tr>';
+    }).join('') + '</tbody></table></div></section>';
+    h += '<section class="sec"><h2>Hasat kayıtları <small>' + list.length + ' kayıt</small></h2><div class="items">' + list.map(function (x) {
+      return '<div class="item"><div class="ih"><b>' + L.fmtD(x.date) + ' · ' + kgTxt(Number(x.kg) || 0) + '</b>' + (S.editable ? editBtns('hs', x.id) : '') + '</div><div class="ib">' + (x.honeyType ? '<span>Çeşit <em>' + esc(x.honeyType) + '</em></span>' : '') + (x.hives ? '<span>Kovan <em>' + esc(x.hives) + '</em></span><span>Kovan başına <em>' + kgTxt((Number(x.kg) || 0) / Number(x.hives)) + '</em></span>' : '') + '</div>' + (x.note ? '<div class="nt">' + esc(x.note) + '</div>' : '') + '</div>';
+    }).join('') + '</div></section>';
+    return h;
+  }
+  function harvestForm(x) {
+    var isNew = !x; x = x || { date: T() };
+    var h = '<form id="f-hs" novalidate><div class="g2"><div class="f"><label for="hs-d">Hasat tarihi</label><input class="inp" id="hs-d" name="date" type="date" value="' + esc(x.date) + '" max="' + T() + '"></div>' +
+      '<div class="f"><label for="hs-kg">Miktar (kg)</label><input class="inp num" id="hs-kg" name="kg" inputmode="decimal" value="' + esc(x.kg != null ? String(x.kg).replace('.', ',') : '') + '" placeholder="Örn. 85,5"></div></div>' +
+      '<div class="g2"><div class="f"><label for="hs-t">Bal çeşidi</label><input class="inp" id="hs-t" name="honeyType" list="dl-honey" maxlength="60" value="' + esc(x.honeyType || '') + '" placeholder="Listeden seçin ya da yazın"><datalist id="dl-honey">' + HONEY_TYPES.map(function (t) { return '<option value="' + esc(t) + '">'; }).join('') + '</datalist></div>' +
+      '<div class="f"><label for="hs-h">Kaç kovandan? (isteğe bağlı)</label><input class="inp num" id="hs-h" name="hives" type="number" min="1" max="999" value="' + esc(x.hives || '') + '"><span class="hint">Girerseniz kovan başına verim hesaplanır.</span></div></div>' +
+      '<div class="f"><label for="hs-n">Not</label><textarea class="inp" id="hs-n" name="note" maxlength="800" placeholder="Örn. süzme, 2 bidon">' + esc(x.note || '') + '</textarea></div>' +
+      '<p class="err" id="hs-err" role="alert"></p><div class="fbtns"><button class="btn primary" type="submit">' + (isNew ? 'Hasadı kaydet' : 'Değişiklikleri kaydet') + '</button><button class="btn" type="button" data-a="close">Vazgeç</button></div></form>';
+    openModal(isNew ? 'Hasat ekle' : 'Hasadı düzenle', h, {
+      submit: function (f) {
+        var d = val(f, 'date'), kg = L.parseNum(val(f, 'kg'));
+        if (!d) return ($('#hs-err').textContent = 'Hasat tarihini seçin.');
+        if (kg == null || !(kg > 0)) return ($('#hs-err').textContent = 'Miktarı kilogram olarak girin.');
+        var hv0 = Number(val(f, 'hives')) || null;
+        put('harvests', Object.assign({}, x, { id: x.id || uid('hs'), date: d, kg: kg, honeyType: val(f, 'honeyType'), hives: hv0, note: val(f, 'note'), created: x.created || Date.now() }));
+        closeModal(); render(); toast(isNew ? 'Hasat kaydedildi: ' + kgTxt(kg) : 'Hasat güncellendi');
+      }
+    });
+  }
+
+  /* =================================================================== */
   /*                               FLORA                                 */
   /* =================================================================== */
   function viewFlora() {
@@ -2817,6 +2921,9 @@ if (typeof module !== 'undefined') module.exports = L;
     'sz-in': function () { pickFile(sahaImportPack); },
     'sz-send': function () { sahaSend(); },
     'ev-add': function () { eventForm(cur()); },
+    'hs-add': function () { harvestForm(); },
+    'hs-edit': function (el) { harvestForm(get('harvests', el.dataset.id)); },
+    'hs-del': function (el) { var x = get('harvests', el.dataset.id); confirmDel(L.fmtD(x.date) + ' tarihli ' + kgTxt(Number(x.kg) || 0) + ' hasat kaydı silinecek.', function () { del('harvests', x.id); toast('Hasat kaydı silindi'); }); },
     'hive-death': function () { S.menu = false; render(); deathForm(cur()); },
     'arc-open': function (el) { S.arcId = el.dataset.id; S.tab = 'checks'; window.scrollTo(0, 0); render(); },
     'arc-back': function () { S.arcId = null; render(); },
