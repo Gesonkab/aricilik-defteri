@@ -649,7 +649,7 @@ textarea.inp{min-height:76px;resize:vertical}
 <div class="tip" id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <input type="file" id="logo-file" accept="image/*" hidden>
-<script>window.SAHA_MODE=true;window.SAHA_VER='dcccfd3b1b';</script>
+<script>window.SAHA_MODE=true;window.SAHA_VER='935c9d710b';</script>
 <script>
 /* ===== Arıcılık Defteri: hesaplama (DOM yok) ===== */
 var L = (function () {
@@ -909,7 +909,7 @@ var L = (function () {
   }
   /* ---- olaylar: fırtınada devrilme, koloni sönmesi ---- */
   var EVENT_KINDS = [['devrildi', 'Fırtına / devrilme'], ['diger', 'Diğer olay']];
-  var DEATH_CAUSES = [['terk', 'Arılar terk etti / zayıflık'], ['devrilme', 'Fırtına / devrilme'], ['esek', 'Eşek arısı / sarıca'], ['varroa', 'Varroa'], ['hastalik', 'Hastalık'], ['aclik', 'Açlık'], ['ana', 'Ana kaybı'], ['bilinmiyor', 'Bilinmiyor']];
+  var DEATH_CAUSES = [['terk', 'Arılar terk etti / zayıflık'], ['devrilme', 'Fırtına / devrilme'], ['esek', 'Eşek arısı'], ['sarica', 'Sarıca'], ['varroa', 'Varroa'], ['hastalik', 'Hastalık'], ['aclik', 'Açlık'], ['ana', 'Ana kaybı'], ['bilinmiyor', 'Bilinmiyor']];
   function deadEvent(h) { var d = null; (h.events || []).forEach(function (ev) { if (ev.kind === 'sondu' && (!d || ev.date > d.date)) d = ev; }); return d; }
   function checkedSince(h, date) { return (h.checks || []).some(function (c) { return c.date >= date; }); }
   /* açık olaylar: devrilme (kontrol girilince ya da “Kontrol ettim” ile kapanır), diğer olay (“Tamam” ile kapanır) */
@@ -1784,7 +1784,7 @@ if (typeof module !== 'undefined') module.exports = L;
         if (!d) return ($('#dt-err').textContent = 'Sönme tarihini seçin.');
         if (!c) return ($('#dt-err').textContent = 'Sebebi seçin (bilmiyorsanız “Bilinmiyor”).');
         archiveHive(x, { date: d, cause: c, note: val(f, 'note') });
-        closeModal(); S.hiveId = null; S.menu = false; render(); toast('Kovan ' + x.no + ' söndü olarak arşive taşındı');
+        closeModal(); S.hiveId = null; S.menu = false; render(); toast('Kovan ' + x.no + ' söndü olarak arşive taşındı' + (c === 'esek' || c === 'sarica' ? '; Eşek Arısı bölümüne de işlendi' : ''));
       }
     });
   }
@@ -1792,6 +1792,18 @@ if (typeof module !== 'undefined') module.exports = L;
     var a = clone(x), id = a.id; delete a.id;
     put('archive', { id: 'ar' + id, hive: a, hiveId: id, no: x.no, death: death, archivedAt: Date.now() });
     del('hives', id);
+    if (death.cause === 'esek' || death.cause === 'sarica') waspLossAdd(death.cause, id, x.no, death.date, death.note, 'ar' + id);
+  }
+  /* sebep eşek arısı / sarıca ise Eşek Arısı bölümündeki “söndürdüğü kovan” sayacına da işlenir */
+  function waspLossAdd(sp, hiveId, no, date, note, arcId) {
+    var y = date.slice(0, 4), old = seasonOf(y, sp);
+    var doc = old ? clone(old) : { id: 'ws' + y + sp, year: y, species: sp, first: null, last: null, peakStart: null, peakEnd: null, note: '', created: Date.now() };
+    doc.losses = (doc.losses || []).filter(function (l) { return l.hiveId !== hiveId; });
+    doc.losses.push({ id: uid('ls'), hiveId: hiveId, hiveNo: no, date: date, note: note || '', arcId: arcId || null });
+    put('wasps', doc);
+  }
+  function waspLossRemove(hiveId) {
+    S.data.wasps.forEach(function (w) { if ((w.losses || []).some(function (l) { return l.hiveId === hiveId && l.arcId; })) { var y = clone(w); y.losses = y.losses.filter(function (l) { return !(l.hiveId === hiveId && l.arcId); }); put('wasps', y); } });
   }
   function menuHtml(x) {
     return '<div class="menu" role="menu"><button type="button" role="menuitem" data-a="hive-info">' + ic('info') + 'Kovan bilgileri</button>' +
@@ -2565,6 +2577,7 @@ if (typeof module !== 'undefined') module.exports = L;
     return '<div class="wa-loss"><div class="wl-h"><span>Söndürdüğü kovan</span><b>' + ls0.length + '</b></div>' +
       (ls0.length ? '<div class="wl-list">' + ls0.map(function (l) {
         var x = get('hives', l.hiveId), no = x ? x.no : l.hiveNo;
+        if (!x && l.arcId) no = l.hiveNo + ' (arşivde)';
         return '<span class="wl-chip" title="' + esc((l.note ? l.note + ' · ' : '') + 'Kayıt anındaki numara: ' + l.hiveNo) + '">Kovan ' + esc(no) + ' <small>' + L.fmtShort(l.date) + '</small>' + (S.editable ? '<button type="button" data-a="wa-loss-del" data-sp="' + w[0] + '" data-y="' + Y + '" data-id="' + esc(l.id) + '" aria-label="Kaydı sil">×</button>' : '') + '</span>';
       }).join('') + '</div>' : '') + '</div>' +
       (S.editable ? '<div class="btns" style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" class="btn sm primary" data-a="wa-loss" data-sp="' + w[0] + '">Söndürülen kovan ekle</button></div>' : '');
@@ -2933,7 +2946,7 @@ if (typeof module !== 'undefined') module.exports = L;
       var taken = S.data.hives.some(function (h) { return Number(h.no) === Number(r.no); });
       confirmDel('Kovan ' + esc(r.no) + ' arşivden çıkarılıp kovanlara geri eklenecek' + (taken ? ' (o numarada başka kovan olduğu için ilk boş numarayı alacak)' : '') + '. Sönme kaydı silinir.', function () {
         var hv0 = clone(r.hive); hv0.id = r.hiveId || uid('h'); if (taken) hv0.no = nextNo();
-        put('hives', hv0); del('archive', r.id); S.arcId = null; render(); toast('Kovan ' + hv0.no + ' geri alındı');
+        put('hives', hv0); del('archive', r.id); waspLossRemove(r.hiveId); S.arcId = null; render(); toast('Kovan ' + hv0.no + ' geri alındı');
       }, 'Evet, geri al');
     },
     'arc-del': function (el) { var r = get('archive', el.dataset.id); if (!r) return; confirmDel('Arşivdeki Kovan ' + esc(r.no) + ' ve bütün kayıtları kalıcı olarak silinecek.', function () { del('archive', r.id); S.arcId = null; render(); toast('Arşiv kaydı silindi'); }); },

@@ -1,7 +1,7 @@
 /* Arıcılık Defteri saha uygulaması · çevrimdışı önbellek
    İnternet varken sayfa her açılışta sunucudan taze alınır (güncellemeler hemen gelir);
    internet yoksa önbellekteki sürüm açılır. */
-var C = 'saha-dcccfd3b1b', FONTS = 'saha-fonts';
+var C = 'saha-935c9d710b', FONTS = 'saha-fonts';
 var CORE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(C).then(function (c) {
