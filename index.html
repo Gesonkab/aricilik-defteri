@@ -652,7 +652,7 @@ textarea.inp{min-height:76px;resize:vertical}
 <div class="tip" id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <input type="file" id="logo-file" accept="image/*" hidden>
-<script>window.SAHA_MODE=true;window.SAHA_VER='6dc4a3fc26';</script>
+<script>window.SAHA_MODE=true;window.SAHA_VER='f8bdfdc989';</script>
 <script>
 /* ===== Arıcılık Defteri: hesaplama (DOM yok) ===== */
 var L = (function () {
@@ -992,9 +992,8 @@ var L = (function () {
       var t = o.t, rep = Number(t.repeatDays) || 0, until = rep ? addDays(o.dd, rep) : null;
       var due = pend[productKey(t)], late = !!(due && due >= o.dd);
       if (late) until = due;
-      var on = !late && (rep ? today < until : o.dd.slice(0, 4) === Y), paused = false;
-      if (!on && h.wintering && t.method === 'puskurtme') { on = true; paused = true; late = false; }
-      return { on: on, paused: paused, late: late, name: t.productName || 'Bitkisel ürün', start: o.dd, until: until, repeat: rep };
+      var on = !late && (rep ? today < until : o.dd.slice(0, 4) === Y);
+      return { on: on, late: late, name: t.productName || 'Bitkisel ürün', start: o.dd, until: until, repeat: rep };
     });
     return {
       formik: [{ on: fi.length > 0, key: 'İ', tip: 'Formik asit · İlkbahar\n' + tipOf(fi, 'Bu yıl tamamlanmış program yok') },
