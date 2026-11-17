@@ -88,6 +88,9 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
 .ph h1{font-size:28px;line-height:1.1;letter-spacing:-.01em}
 .ph p{margin:4px 0 0;color:var(--muted);font-size:14px}
 .btns{display:flex;gap:8px;flex-wrap:wrap}
+.tbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:-4px 0 14px}
+.mlinks{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.mlinks .muted{font-size:13px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:8px 14px;border-radius:10px;border:1px solid var(--line2);background:var(--surface);font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none;color:var(--ink)}
 .btn:hover{border-color:var(--muted)}
 .btn svg{width:18px;height:18px;flex:0 0 auto}
@@ -207,8 +210,8 @@ tr:last-child td{border-bottom:0}
   .sbar .apt{align-self:center;white-space:nowrap}
   .ph{margin-bottom:10px}
   .ph h1{font-size:22px}
-  .ph .btns .btn{min-height:34px;padding:5px 12px;font-size:13.5px}
-  .ph .btns .btn svg{width:15px;height:15px}
+  .ph .btns .btn,.tbar .btn{min-height:34px;padding:5px 12px;font-size:13.5px}
+  .ph .btns .btn svg,.tbar .btn svg{width:15px;height:15px}
   .ph p{font-size:12.5px}
   .counts{margin-bottom:8px;gap:5px}
   .cnt{padding:3px 10px;font-size:12.5px;gap:6px}
@@ -649,7 +652,7 @@ textarea.inp{min-height:76px;resize:vertical}
 <div class="tip" id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <input type="file" id="logo-file" accept="image/*" hidden>
-<script>window.SAHA_MODE=true;window.SAHA_VER='004b021ecc';</script>
+<script>window.SAHA_MODE=true;window.SAHA_VER='6dc4a3fc26';</script>
 <script>
 /* ===== Arıcılık Defteri: hesaplama (DOM yok) ===== */
 var L = (function () {
@@ -1535,9 +1538,8 @@ if (typeof module !== 'undefined') module.exports = L;
   function viewHives() {
     var all = hives(), c = L.counters(all, T());
     var h = '<div class="ph"><div><h1>Kovanlarım</h1><p>Simgelere dokunarak ayrıntıyı görün; kovanı açmak için kovana dokunun.</p></div>' +
-      (S.editable ? '<div class="btns"><button class="btn primary" type="button" data-a="hive-add">' + ic('plus') + 'Kovan ekle</button>' + (SAHA ? '' : '<button class="btn" type="button" data-a="saha">' + ic('sync') + 'Saha uygulaması</button>') + '<button class="btn" type="button" data-a="winter-all">' + '<svg aria-hidden="true" viewBox="0 0 24 24"><use href="#g-snow"/></svg>' + (c.winter && c.winter === c.all ? 'Kışlatmayı bitir' : 'Toplu kışlatma') + '</button><button class="btn" type="button" data-a="mat-add">' + ic('box') + 'Malzeme Ekle</button><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>' : '<div class="btns"><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>') + '</div>';
+      '</div>' + (S.editable ? '<div class="tbar"><div class="btns"><button class="btn primary" type="button" data-a="hive-add">' + ic('plus') + 'Kovan Ekle</button><button class="btn primary" type="button" data-a="mat-add">' + ic('box') + 'Malzeme Ekle</button></div><div class="btns"><button class="btn" type="button" data-a="winter-all"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#g-snow"/></svg>' + (c.winter && c.winter === c.all ? 'Kışlatmayı bitir' : 'Toplu kışlatma') + '</button>' + (SAHA ? '' : '<button class="btn" type="button" data-a="saha">' + ic('sync') + 'Saha uygulaması</button>') + '</div></div>' : '');
     if (all.some(function (x) { return x.example; }) && S.editable) h += '<div class="banner"><span>“Örnek” yazan kovanlar simgelerin nasıl çalıştığını göstermek için eklendi. Kendi kovanlarınızı ekleyince silebilirsiniz.</span><button class="btn sm" type="button" data-a="del-examples">Örnek kovanları sil</button></div>';
-    h += '<div class="counts" aria-label="Kovan renkleri"><span class="cnt"><span class="dot d-green"></span>Yeşil <b>' + c.green + '</b></span><span class="cnt"><span class="dot d-orange"></span>Turuncu <b>' + c.orange + '</b></span><span class="cnt"><span class="dot d-red"></span>Kırmızı <b>' + c.red + '</b></span><span class="cnt"><span class="dot d-gray"></span>Kayıtsız <b>' + c.gray + '</b></span>' + (c.winter ? '<span class="cnt"><span class="dot d-ice"></span>Kışlatma <b>' + c.winter + '</b></span>' : '') + (c.dead ? '<span class="cnt" title="Sönen kovanlar sayılara ve sağlık skoruna katılmaz"><span class="dot d-dead"></span>Sönük <b>' + c.dead + '</b></span>' : '') + '</div>';
     var fdefs = [['all', 'Hepsi', c.all, ''], ['strong', 'Güçlü', c.strong, 'gold'], ['normal', 'Normal', c.normal, 'green'], ['weak', 'Zayıf', c.weak, 'red']];
     h += '<div class="sbar"><div class="sfilters" role="group" aria-label="Güce göre filtrele">' + fdefs.map(function (d) {
       return '<button type="button" class="fbtn" data-a="sf" data-v="' + d[0] + '" aria-pressed="' + (S.sf === d[0]) + '"><span class="fn">' + d[2] + '</span><span class="fbl">' + (d[3] ? '<svg class="ms" viewBox="0 0 24 24" style="color:var(--' + d[3] + ')"><use href="#g-muscle"/></svg>' : '') + d[1] + '</span></button>';
@@ -1644,7 +1646,7 @@ if (typeof module !== 'undefined') module.exports = L;
   function rearToggleInit(f) { f.addEventListener('change', function (e) { if (e.target.name === 'rear') $('#h-rearbox').hidden = !e.target.checked; }); }
   function hiveAddForm(el) {
     var at = el && el.dataset && el.dataset.no;
-    var h = '<form id="f-hive" novalidate>' + hiveInfoFields({}, true, at) + '<p class="err" id="h-err" role="alert"></p><div class="fbtns"><button class="btn primary" type="submit">Kovanları ekle</button><button class="btn" type="button" data-a="close">Vazgeç</button></div></form>';
+    var h = (SAHA ? '' : '<div class="mlinks"><button class="btn sm" type="button" data-a="go-arsiv">' + ic('box') + 'Arşiv (' + S.data.archive.length + ')</button><span class="muted">Sönen kovanların kayıtları</span></div>') + '<form id="f-hive" novalidate>' + hiveInfoFields({}, true, at) + '<p class="err" id="h-err" role="alert"></p><div class="fbtns"><button class="btn primary" type="submit">Kovanları ekle</button><button class="btn" type="button" data-a="close">Vazgeç</button></div></form>';
     openModal('Kovan ekle', h, {
       init: function (m) { var f = $('#f-hive', m); rearToggleInit(f); f.addEventListener('change', function (e) { if (e.target.name === 'base') { var r = f.querySelector('input[name=drawer][value="' + (e.target.value === 'ahsap' ? '0' : '1') + '"]'); if (r) r.checked = true; } }); },
       submit: function (f) {
@@ -2257,7 +2259,7 @@ if (typeof module !== 'undefined') module.exports = L;
   /* ---------- malzemeler ---------- */
   function matForm(mt) {
     var isNew = !mt; mt = mt || { purpose: 'besleme', programType: 'single', ingredient: 'formik', method: 'buharlastirma', days: [1, 5, 9, 13] };
-    var h = '<form id="f-mat" novalidate><div class="f"><span class="lb">Kullanım amacı</span>' + radios('purpose', L.PURPOSES, mt.purpose) + '</div>' +
+    var h = (isNew ? '<div class="mlinks"><button class="btn sm" type="button" data-a="mat-list">' + ic('box') + 'Malzeme listesi (' + S.data.materials.length + ')</button><span class="muted">Kayıtlı malzemeleri gör, düzenle</span></div>' : '') + '<form id="f-mat" novalidate><div class="f"><span class="lb">Kullanım amacı</span>' + radios('purpose', L.PURPOSES, mt.purpose) + '</div>' +
       '<div class="g2"><div class="f"><label for="m-brand">Markası</label><input class="inp" id="m-brand" name="brand" maxlength="60" value="' + esc(mt.brand || '') + '" placeholder="Örn. Dr.Gost"></div>' +
       '<div class="f"><label for="m-name">Ürün ismi</label><input class="inp" id="m-name" name="name" maxlength="80" value="' + esc(mt.name || '') + '" placeholder="Örn. Polen keki"></div></div>' +
       '<div class="f"><label for="m-usage">Nasıl kullanılacak?</label><textarea class="inp" id="m-usage" name="usage" maxlength="800">' + esc(mt.usage || '') + '</textarea></div>' +
@@ -2933,6 +2935,7 @@ if (typeof module !== 'undefined') module.exports = L;
     menu: function () { S.menu = !S.menu; render(); },
     tab: function (el) { S.tab = el.dataset.v; render(); },
     'hive-add': function () { hiveAddForm(); },
+    'go-arsiv': function () { closeModal(); location.hash = '#arsiv'; },
     'hive-add-at': function (el) { hiveAddForm(el); },
     'hive-info': function () { S.menu = false; render(); hiveInfoForm(cur()); },
     saha: function () { sahaModal(); },
