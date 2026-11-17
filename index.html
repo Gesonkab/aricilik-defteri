@@ -649,7 +649,7 @@ textarea.inp{min-height:76px;resize:vertical}
 <div class="tip" id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <input type="file" id="logo-file" accept="image/*" hidden>
-<script>window.SAHA_MODE=true;window.SAHA_VER='935c9d710b';</script>
+<script>window.SAHA_MODE=true;window.SAHA_VER='004b021ecc';</script>
 <script>
 /* ===== Arıcılık Defteri: hesaplama (DOM yok) ===== */
 var L = (function () {
@@ -989,8 +989,9 @@ var L = (function () {
       var t = o.t, rep = Number(t.repeatDays) || 0, until = rep ? addDays(o.dd, rep) : null;
       var due = pend[productKey(t)], late = !!(due && due >= o.dd);
       if (late) until = due;
-      var on = !late && (rep ? today < until : o.dd.slice(0, 4) === Y);
-      return { on: on, late: late, name: t.productName || 'Bitkisel ürün', start: o.dd, until: until, repeat: rep };
+      var on = !late && (rep ? today < until : o.dd.slice(0, 4) === Y), paused = false;
+      if (!on && h.wintering && t.method === 'puskurtme') { on = true; paused = true; late = false; }
+      return { on: on, paused: paused, late: late, name: t.productName || 'Bitkisel ürün', start: o.dd, until: until, repeat: rep };
     });
     return {
       formik: [{ on: fi.length > 0, key: 'İ', tip: 'Formik asit · İlkbahar\n' + tipOf(fi, 'Bu yıl tamamlanmış program yok') },
@@ -1009,7 +1010,9 @@ var L = (function () {
     hives.forEach(function (h) {
       var latest = {}, pend = {};
       (h.treatments || []).forEach(function (t) {
+        var sprayOff = h.wintering && t.method === 'puskurtme'; /* kışlatmada püskürtme hatırlatılmaz */
         (t.steps || []).forEach(function (s, i) {
+          if (sprayOff && !s.done) return;
           out.push({ kind: 'step', hiveId: h.id, hiveNo: h.no, tId: t.id, idx: i, date: s.date, label: s.label, product: t.productName || lab(INGREDIENTS, t.ingredient), ingredient: t.ingredient, method: t.method, done: !!s.done, dose: s.dose || '' });
         });
         if (t.ingredient === 'bitkisel' && Number(t.repeatDays) > 0) {
@@ -1028,10 +1031,13 @@ var L = (function () {
         if (c.nextDate && c.nextTask) out.push({ kind: 'todo', hiveId: h.id, hiveNo: h.no, cId: c.id, idx: -1, date: c.nextDate, label: c.nextTask, product: 'Kovan işi', ingredient: '', done: !!c.nextDone, dose: '' });
       });
       Object.keys(latest).forEach(function (k) {
-        var t = latest[k].t, dd = latest[k].dd;
+        var t = latest[k].t, dd = latest[k].dd, due = addDays(dd, Number(t.repeatDays));
+        if (h.wintering && t.method === 'puskurtme') return;
+        /* kış boyunca ertelenen tekrar, kışlatma kapandığı gün başlar */
+        if (t.method === 'puskurtme' && h.winterTo && due < h.winterTo) due = h.winterTo;
         /* bekleyen (planlanmış ama yapılmamış) bir uygulama varsa tekrar işi onun adımıyla zaten takvimde */
         if ((pend[k] || []).some(function (st) { return st >= dd; })) return;
-        out.push({ kind: 'repeat', hiveId: h.id, hiveNo: h.no, tId: t.id, idx: -1, date: addDays(dd, Number(t.repeatDays)), label: 'Tekrar uygulama (' + t.repeatDays + ' gün)', product: t.productName || 'Bitkisel ürün', ingredient: 'bitkisel', done: false, dose: '' });
+        out.push({ kind: 'repeat', hiveId: h.id, hiveNo: h.no, tId: t.id, idx: -1, date: due, label: 'Tekrar uygulama (' + t.repeatDays + ' gün)', product: t.productName || 'Bitkisel ürün', ingredient: 'bitkisel', done: false, dose: '' });
       });
     });
     out.forEach(function (x) { x.late = !x.done && x.date < today; });
@@ -1281,7 +1287,7 @@ if (typeof module !== 'undefined') module.exports = L;
     while (herb.length < 4) herb.push(null);
     var herbH = herb.map(function (x, i) {
       if (!x) return hexBtn({ st: wst('gray', w), text: String(i + 1), tip: 'Bitkisel / uçucu yağ ' + (i + 1) + '\nKayıt yok', s: 16, cls: 'vh' });
-      var tip = 'Bitkisel · ' + x.name + '\nUygulama: ' + L.fmtD(x.start) + (x.until ? '\nTekrar: ' + L.fmtD(x.until) + ' (' + x.repeat + ' gün)' : '');
+      var tip = 'Bitkisel · ' + x.name + '\nUygulama: ' + L.fmtD(x.start) + (x.paused ? '\nKışlatma: tekrar kışlatma bitince' : x.until ? '\nTekrar: ' + L.fmtD(x.until) + ' (' + x.repeat + ' gün)' : '');
       return hexBtn({ st: wst(x.on ? 'green' : 'gray', w), text: x.name.slice(0, 2), tip: tip, s: 16, cls: 'vh' });
     }).join('');
     return '<div class="vrow" aria-label="Varroa mücadelesi">' +
@@ -1319,7 +1325,7 @@ if (typeof module !== 'undefined') module.exports = L;
     return '<button type="button" class="brand' + (can ? ' can' : '') + '"' + (can ? ' data-a="logo" title="Amblemi değiştir"' : ' tabindex="-1"') + '><span class="logo">' + logo + '</span><span><b>Arıcılık Defteri</b><small>Toluklar · Kaz Dağı</small></span></button>';
   }
   function renderShell() {
-    var nav = NAV.map(function (n) { return '<a href="#' + n[0] + '"' + (S.view === n[0] ? ' aria-current="page"' : '') + '>' + ic(n[2]) + '<span>' + n[1] + '</span></a>'; }).join('');
+    var nav = NAV.filter(function (n) { return !S.limited || n[0] === 'masraf'; }).map(function (n) { return '<a href="#' + n[0] + '"' + (S.view === n[0] ? ' aria-current="page"' : '') + '>' + ic(n[2]) + '<span>' + n[1] + '</span></a>'; }).join('');
     $('#nav-side').innerHTML = nav; $('#nav-top').innerHTML = nav;
     var b = brandHtml(); $('#brand-side').innerHTML = b; $('#brand-top').innerHTML = b;
     $('#role-side').textContent = SAHA ? 'Saha uygulaması · internetsiz çalışır' : S.mode === 'loading' ? '' : S.editable ? 'Düzenleme yetkisi: sizde' : 'Yalnızca görüntüleme';
@@ -1352,7 +1358,7 @@ if (typeof module !== 'undefined') module.exports = L;
   }
   function route() {
     var h = (location.hash || '').replace('#', '');
-    if ((SAHA ? ['kovanlar', 'takvim', 'esek', 'senkron'] : ['masraf', 'kovanlar', 'takvim', 'esek', 'flora', 'arsiv', 'hasat']).indexOf(h) >= 0) { if (S.view !== h || S.hiveId) { S.view = h; S.hiveId = null; S.arcId = null; S.menu = false; window.scrollTo(0, 0); } }
+    if ((S.limited ? ['masraf'] : SAHA ? ['kovanlar', 'takvim', 'esek', 'senkron'] : ['masraf', 'kovanlar', 'takvim', 'esek', 'flora', 'arsiv', 'hasat']).indexOf(h) >= 0) { if (S.view !== h || S.hiveId) { S.view = h; S.hiveId = null; S.arcId = null; S.menu = false; window.scrollTo(0, 0); } }
     else if (h === 'borclar' || h === 'pivot') S.view = 'masraf';
     render();
   }
@@ -1529,7 +1535,7 @@ if (typeof module !== 'undefined') module.exports = L;
   function viewHives() {
     var all = hives(), c = L.counters(all, T());
     var h = '<div class="ph"><div><h1>Kovanlarım</h1><p>Simgelere dokunarak ayrıntıyı görün; kovanı açmak için kovana dokunun.</p></div>' +
-      (S.editable ? '<div class="btns"><button class="btn primary" type="button" data-a="hive-add">' + ic('plus') + 'Kovan ekle</button>' + (SAHA ? '' : '<button class="btn" type="button" data-a="saha">' + ic('sync') + 'Saha uygulaması</button>') + '<button class="btn" type="button" data-a="mat-add">' + ic('box') + 'Malzeme Ekle</button><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>' : '<div class="btns"><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>') + '</div>';
+      (S.editable ? '<div class="btns"><button class="btn primary" type="button" data-a="hive-add">' + ic('plus') + 'Kovan ekle</button>' + (SAHA ? '' : '<button class="btn" type="button" data-a="saha">' + ic('sync') + 'Saha uygulaması</button>') + '<button class="btn" type="button" data-a="winter-all">' + '<svg aria-hidden="true" viewBox="0 0 24 24"><use href="#g-snow"/></svg>' + (c.winter && c.winter === c.all ? 'Kışlatmayı bitir' : 'Toplu kışlatma') + '</button><button class="btn" type="button" data-a="mat-add">' + ic('box') + 'Malzeme Ekle</button><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>' : '<div class="btns"><button class="btn ghost" type="button" data-a="mat-list">Malzeme listesi (' + S.data.materials.length + ')</button>' + (SAHA ? '' : '<a class="btn ghost" href="#arsiv">Arşiv (' + S.data.archive.length + ')</a>') + '</div>') + '</div>';
     if (all.some(function (x) { return x.example; }) && S.editable) h += '<div class="banner"><span>“Örnek” yazan kovanlar simgelerin nasıl çalıştığını göstermek için eklendi. Kendi kovanlarınızı ekleyince silebilirsiniz.</span><button class="btn sm" type="button" data-a="del-examples">Örnek kovanları sil</button></div>';
     h += '<div class="counts" aria-label="Kovan renkleri"><span class="cnt"><span class="dot d-green"></span>Yeşil <b>' + c.green + '</b></span><span class="cnt"><span class="dot d-orange"></span>Turuncu <b>' + c.orange + '</b></span><span class="cnt"><span class="dot d-red"></span>Kırmızı <b>' + c.red + '</b></span><span class="cnt"><span class="dot d-gray"></span>Kayıtsız <b>' + c.gray + '</b></span>' + (c.winter ? '<span class="cnt"><span class="dot d-ice"></span>Kışlatma <b>' + c.winter + '</b></span>' : '') + (c.dead ? '<span class="cnt" title="Sönen kovanlar sayılara ve sağlık skoruna katılmaz"><span class="dot d-dead"></span>Sönük <b>' + c.dead + '</b></span>' : '') + '</div>';
     var fdefs = [['all', 'Hepsi', c.all, ''], ['strong', 'Güçlü', c.strong, 'gold'], ['normal', 'Normal', c.normal, 'green'], ['weak', 'Zayıf', c.weak, 'red']];
@@ -2955,7 +2961,14 @@ if (typeof module !== 'undefined') module.exports = L;
     'hive-move': function () { S.menu = false; render(); moveModal(cur()); },
     'hive-merge': function () { S.menu = false; render(); pickModal(cur(), 'merge'); },
     'hive-split': function () { S.menu = false; render(); pickModal(cur(), 'split'); },
-    'hive-winter': function () { var y = clone(cur()); y.wintering = !y.wintering; S.menu = false; saveHive(y); toast(y.wintering ? 'Kışlatma modu açıldı' : 'Kışlatma modu kapandı'); },
+    'winter-all': function () {
+      var live = hives().filter(function (x) { return !L.deadEvent(x); }), on = live.filter(function (x) { return x.wintering; }).length, end = on && on === live.length;
+      confirmDel(end ? 'Kışlatmadaki <b>' + on + '</b> kovanın tamamında kışlatma kapatılsın mı? Reset, Thor gibi püskürtme tekrarları bugünden itibaren takvime yeniden düşer.' :
+        '<b>' + (live.length - on) + '</b> kovan kışlatma moduna alınsın mı? Püskürtme uygulamalarının (Reset, Thor vb.) hatırlatmaları kış boyunca durur. Oksalik damlatma / buharlaştırma, besleme ve diğer işler etkilenmez.',
+        function () { var d = T(); live.forEach(function (x) { if (!!x.wintering === !end) return; var y = clone(x); y.wintering = !end; if (y.wintering) { y.winterFrom = d; delete y.winterTo; } else y.winterTo = d; put('hives', y); }); toast(end ? 'Kışlatma tüm kovanlarda kapandı' : 'Tüm kovanlar kışlatma modunda'); },
+        end ? 'Evet, kışlatmayı bitir' : 'Evet, kışlatmaya al');
+    },
+    'hive-winter': function () { var y = clone(cur()); y.wintering = !y.wintering; if (y.wintering) { y.winterFrom = T(); delete y.winterTo; } else y.winterTo = T(); S.menu = false; saveHive(y); toast(y.wintering ? 'Kışlatma modu açıldı · püskürtme hatırlatmaları durdu' : 'Kışlatma modu kapandı · püskürtme hatırlatmaları yeniden başladı'); },
     'hive-reset': function () { S.menu = false; render(); resetModal(cur()); },
     'hive-reset-yes': function () {
       var y = clone(cur()); ['checks', 'treatments', 'feedings', 'counts', 'queens', 'events'].forEach(function (k) { y[k] = []; }); y.wintering = false; delete y.example;
@@ -3091,8 +3104,11 @@ if (typeof module !== 'undefined') module.exports = L;
     if (S.editable) { try { S.assets = await cl.use('assets'); } catch (e) { S.assets = null; } try { S.downloads = await cl.use('downloads'); } catch (e) { S.downloads = null; } }
     if (!db) { S.mode = 'memory'; S.editable = !user; render(); return; }
     store = db;
-    var pending = COLS.length;
-    COLS.forEach(function (col) {
+    /* yalnızca görüntüleme yetkisi olan ortaklar (Bora, Özcan) sadece Masraf takibini görür; diğer veriler veritabanı kurallarıyla da kapalı */
+    var cols = COLS;
+    if (!S.editable && user) { S.limited = true; cols = ['expenses', 'payments', 'debts', 'settings']; COLS.forEach(function (c) { if (cols.indexOf(c) < 0) S.loaded[c] = true; }); S.view = 'masraf'; S.hiveId = null; if (location.hash && location.hash !== '#masraf') location.hash = '#masraf'; }
+    var pending = cols.length;
+    cols.forEach(function (col) {
       db.collection(col).onSnapshot(function (snap) {
         S.data[col] = overlayPending(col, snap.docs.map(function (d) { var o = Object.assign({}, d.data()); o.id = d.id; return o; }));
         if (!S.loaded[col]) { S.loaded[col] = true; pending--; }
